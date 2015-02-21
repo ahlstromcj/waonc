@@ -1,0 +1,49 @@
+/******************************************************************************
+ * notes_functions.dox
+ *-----------------------------------------------------------------------------
+ *
+ * \library    waonc
+ * \author     Chris Ahlstrom
+ * \version    1.1
+ * \date       2013-12-01
+ * \update     2013-12-01
+ * \license    GNU GPL 2.0 and above
+ *
+ *------------------------------------------------------------------------*//**
+
+\file    notes_functions.dox
+
+This document describes the functions and parameters of the notes module.
+
+\page    notes_page The Notes Module
+
+\section notes_intro Introduction to the Notes Module
+
+To be written.
+
+\section notes_struct Notes Structure
+
+The waon_notes_t type-definition provides a buffer for notes (once the
+application allocates it), the FFT-window-length steps, events, and velocity.
+We've also added storage for the minimum and maximum note (pitch) values
+generated, and a frequency-bin (histogram) array to indicate how many notes
+of each pitch were generated.
+
+\section notes_window Notes Options
+
+The <code>notes</code> module has the following options:
+
+   -  "--dump-bin".
+      This option indicates to show the histogram of generated notes.
+   -  "--dump-events".
+      This option indicates to show the generated events.
+
+Otherwise, there are no options directly affecting the note module.
+
+*//*-------------------------------------------------------------------------*/
+
+/*****************************************************************************
+ * notes_functions.dox
+ * --------------------------------------------------------------------------
+ * vim: ts=3 sw=3 et syntax=doxygen
+ *---------------------------------------------------------------------------*/

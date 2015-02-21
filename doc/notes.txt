@@ -1,0 +1,75 @@
+Current options:
+
+   Globals:
+
+      extern int abs_flg; /* flag for absolute/relative cutoff  */
+
+         Default: 1 (true)
+
+      extern double adj_pitch;
+
+         Default: 0.0
+
+      extern double pitch_shift;
+      extern int n_pitch;
+
+   Local:
+
+      char * file_midi
+
+         Option: "--output" or "-o"
+         Default: NONE (!)
+
+      char * file_wav
+
+         Option: "--input" or "-i"
+         Default: "-" (denotes stdin I believe)
+
+      char * file_patch
+
+      double cut_ratio = -5.0; /* log10 of cutoff ratio for scale velocity */
+
+         Option: "--cutoff" or "-c"
+         Default: -5.0
+
+      double rel_cut_ratio = 1.0; /* log10 of cutoff ratio relative to average */
+
+      long fft_len = 2048;     /* this value is ignored when abs_flg == 1 */
+
+         Option: "--window-length" (NEW) or "-n"
+         Default: 2048
+
+      int flag_window = 3; /* FFT hanning window */
+
+         Option: "--window" or "-w"
+         Default: 3 /* Hanning window */
+
+      int notetop = 103; /* G8  */ /* for 76 keys piano  */
+
+         Option: "--top" or "-t"
+         Default: 103 /* G8 */
+
+      int notelow = 28; /* E2  */ /* for 76 keys piano  */
+
+         Option: "--bottom" or "-b"
+         Default: 28 /* E2 */
+
+      long shift_hop = 0
+
+         Option: "--shift" or "-s"
+         Default: 0 which implies fft_len/4
+
+      int peak_threshold = 128; /* this means no peak search  */
+
+      int flag_phase = 1; /* use the phase correction */
+
+      int psub_n = 0;
+
+      double psub_f = 0.0;
+
+      double oct_f = 0.0;
+
+
+
+
+

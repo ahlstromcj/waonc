@@ -1,0 +1,34 @@
+#******************************************************************************
+# waonc/test-files/README
+#------------------------------------------------------------------------------
+##
+# \file        README
+# \author      Chris Ahlstrom
+# \date        2013-11-11
+# \update      2013-11-28
+#
+#------------------------------------------------------------------------------
+
+1. Initial test.  After getting the waonc library and console application
+   to work, I recorded my voice "singing" the scales.  Then I used the
+   default settings of waonc to generate the corresponding MIDI file.  It
+   is filled with way too many notes.  Playing it using timidity, though,
+   you can still see that it almost reconstructs my voice in piano notes!
+
+   ./waonc -i ca-doremi.wav -o ca-coremi.mid
+
+      ca-doremi.mid
+      ca-doremi.wav
+
+   ca-output-before-fixes.mid is the same as ca-doremi.mid.
+
+   If the absolute-cutoff option is changed from true (absolute) to false
+   (relative), then the result is similar, but with a lot fewer MIDI notes:
+   ca-output-after-fixes.mid
+
+#*****************************************************************************
+# README (waonc/test-files)
+#-----------------------------------------------------------------------------
+# vim: ts=3 sw=3 et ft=sh
+#-----------------------------------------------------------------------------
+

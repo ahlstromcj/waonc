@@ -1,0 +1,930 @@
+2011-12-27  Kengo Ichiki  <kichiki@users.sourceforge.net>
+
+	* Release 0.10.
+
+	* gwaon-about.c: 1.4 2011/12/27 14:44:46 kichiki Exp
+	update.
+
+	* gwaon-wav.c: 1.20 2011/12/27 14:39:22 kichiki Exp
+	(create_wav): check ao device, and initialize,
+	otherwise we got seg-fault.
+
+	* VERSION.h:
+	increment to 0.10.
+	
+	* main.c: 1.12 2011/12/27 13:11:00 kichiki Exp
+	(main): add cleaning steps for the data.
+
+	* midi.c: 1.7 2011/12/27 13:07:40 kichiki Exp
+	(WAON_notes_output_midi): correct checks for smf_note_on/off ().
+
+	* notes.h: 1.2 2011/12/27 13:00:56 kichiki Exp
+	* notes.c: 1.2 2011/12/27 13:00:20 kichiki Exp
+	add basic methods of insert, remove_at.
+	add clean-up methods like regulate, remove_shortnotes,
+	remove_longnotes, remove_smallnotes, remove_octaves.
+	add dump methods for checking.
+
+2008-11-30  Kengo Ichiki  <kichiki@users.sourceforge.net>
+
+	* gwaon-about.c: 1.3 2008/12/01 00:48:29 kichiki Exp
+	update.
+
+	* gwaon-menu.c: 1.3 2008/12/01 00:38:27 kichiki Exp
+	* gwaon-wav.c: 1.19 2008/12/01 00:47:59 kichiki Exp
+	minor style change.
+
+2008-11-09  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon-wav.c: 1.18 2008/11/09 20:59:32 kichiki Exp
+	-- the following is done on 2008-06-19 --
+	(draw_keyboard_hor): added.
+	(draw_spectrum_frame): add horizontal keyboard.
+
+2008-06-06  Kengo Ichiki  <ichiki@tpr60>
+
+	* pv.c: 1.19 2008/06/07 04:54:45 kichiki Exp
+	* pv.1: 1.4 2008/06/07 04:54:07 kichiki Exp
+	* main.c: 1.11 2008/06/07 04:53:16 kichiki Exp
+	* waon.1: 1.4 2008/06/07 04:52:47 kichiki Exp
+	some corrections on manual and help documentation.
+
+2007-11-05  Kengo Ichiki  <ichiki@tpr60>
+
+	* waon.spec: 1.1
+	initial revision.
+
+2007-11-04  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.9.
+
+	* pv.c: 1.18 2007/11/05 02:37:10 kichiki Exp
+	correct the default scheme to 0, the curses mode.
+
+	* Makefile: 1.5 2007/11/05 02:31:44 kichiki Exp
+	comment out the experimental jack stuff.
+
+	* gwaon.1: 1.2 2007/11/05 02:29:54 kichiki Exp
+	* pv.1: 1.3 2007/11/05 02:28:28 kichiki Exp
+	* waon.1: 1.3 2007/11/05 02:25:22 kichiki Exp
+	update the version to 0.9.
+
+	* pv.c: 1.17 2007/11/05 02:27:00 kichiki Exp
+	comment out the experimental jack stuff.
+	re-order -scheme options.
+
+	* pv-complex-curses.c: 1.7 2007/11/05 02:23:46 kichiki Exp
+	widen the comment to clear the message before.
+
+	* Makefile.waon: 1.7 2007/11/04 23:59:41 kichiki Exp
+	* Makefile: 1.4 2007/11/04 23:58:16 kichiki Exp
+	add notes.c for waon.
+
+	* pv-complex.h: 1.11 2007/11/04 23:57:25 kichiki Exp
+	* pv-complex.c: 1.15 2007/11/04 23:57:06 kichiki Exp
+	correct some comments.
+	(pv_complex_play_step): update the handling on static work area.
+
+	* main.c: 1.10 2007/11/04 23:51:36 kichiki Exp
+	use new struct WAON_notes in notes.c.
+
+	* notes.h: 1.1 2007/11/04 23:49:55 kichiki Exp
+	* notes.c: 1.1 2007/11/04 23:49:18 kichiki Exp
+	added.
+
+	* midi.h: 1.5 2007/11/04 23:48:26 kichiki Exp
+	* midi.c: 1.6 2007/11/04 23:48:04 kichiki Exp
+	(output_midi): removed. use WAON_notes_output_midi() instead.
+	(WAON_notes_output_midi): added using struct WAON_notes in notes.c.
+
+	* analyse.h: 1.5 2007/11/04 23:46:03 kichiki Exp
+	* analyse.c: 1.8 2007/11/04 23:45:39 kichiki Exp
+	(chk_note_on_off): removed. now WAON_notes_check() in notes.c is used.
+	global peak_threshold is removoed.
+	(init_ia_note, append_ia_note, incr_ia_note): removed.
+
+	* fft.c: 1.9 2007/11/04 23:44:44 kichiki Exp
+	(power_subtract_ave, power_subtract_octave): make the work area static.
+
+2007-10-28  Kengo Ichiki  <ichiki@tpr60>
+
+	* Makefile.pv: 1.7 2007/10/29 02:51:19 kichiki Exp
+	* Makefile: 1.3 2007/10/29 02:50:48 kichiki Exp
+	add pv-nofft.c and jack-pv.c.
+
+	* jack-pv.h: 1.1 2007/10/29 02:49:09 kichiki Exp
+	* jack-pv.c: 1.1 2007/10/29 02:48:41 kichiki Exp
+	added.
+
+	* pv.c: 1.16 2007/10/29 02:46:07 kichiki Exp
+	add experimental scheme (jack and nofft).
+
+	* pv-complex-curses.c: 1.6 2007/10/29 02:43:06 kichiki Exp
+	add nofft option (just for fun).
+
+	* pv-nofft.h: 1.1 2007/10/29 01:17:40 kichiki Exp
+	* pv-nofft.c: 1.1 2007/10/29 01:17:11 kichiki Exp
+	added.
+
+	* VERSION.h: 1.7
+	increment the version (for the next release).
+
+	* gwaon-about.c: 1.2 2007/10/28 17:24:20 kichiki Exp
+	update using "GTK_TYPE_ABOUT_DIALOG".
+
+2007-10-21  Kengo Ichiki  <ichiki@tpr60>
+
+	* pv-complex-curses.c: 1.5 2007/10/22 04:46:54 kichiki Exp
+	(play_100msec_curses): update for the change in pv-complex.c.
+
+	* gwaon-play.c: 1.8 2007/10/22 04:46:29 kichiki Exp
+	(play_100msec): update for the change in pv-complex.c.
+
+	* pv-complex.h: 1.10 2007/10/22 04:44:20 kichiki Exp
+	* pv-complex.c: 1.14 2007/10/22 04:43:54 kichiki Exp
+	house-keeping the code.
+	(pv_complex_play_resample): change the returned value from hop_syn 
+	to hop_res, the output frames.
+
+	* hc.c: 1.7 2007/10/22 04:26:38 kichiki Exp
+	(HC_complex_phase_vocoder): make the work area (tmp1, tmp2) static.
+
+2007-10-20  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon.1: 1.1 2007/10/21 04:46:54 kichiki Exp
+	added.
+
+	* pv.1: 1.2 2007/10/21 04:46:20 kichiki Exp
+	add informations about the key-bindings.
+	add gwaon at see-also section.
+
+	* waon.1: 1.2 2007/10/21 04:45:40 kichiki Exp
+	add gwaon at see-also section.
+
+	* gwaon-wav.c: 1.17 2007/10/21 04:44:52 kichiki Exp
+	add buttons for the same functions with key-bindings.
+
+	* pv.c: 1.15 2007/10/21 04:42:42 kichiki Exp
+	(print_pv_usage): updated.
+
+	* pv-complex-curses.h: 1.4 2007/10/21 04:04:47 kichiki Exp
+	* pv-complex-curses.c: 1.4 2007/10/21 04:04:24 kichiki Exp
+	(play_100msec_curses): correct the name as it is.
+	(curses_print_pitch): added.
+
+	* snd.c: 1.4 2007/10/21 04:03:30 kichiki Exp
+	(sndfile_read): make the work area (buf) static.
+
+	* gwaon-play.h: 1.2 2007/10/21 04:02:23 kichiki Exp
+	* gwaon-play.c: 1.7 2007/10/21 04:01:56 kichiki Exp
+	(play_100msec): correct the name as it is.
+
+	* INSTALL: 1.3 2007/10/21 00:16:26 kichiki Exp
+	updated.
+
+	* gwaon-wav.c: 1.16 2007/10/20 20:25:37 kichiki Exp
+	(create_wav): correct the initial pictch 0.
+
+	* Makefile.pv: 1.6 2007/10/20 20:27:31 kichiki Exp
+	* Makefile: 1.2 2007/10/20 20:16:42 kichiki Exp
+	change the library name from curses to ncurses.
+
+	* gwaon-play.c: 1.6 2007/10/20 20:09:11 kichiki Exp
+	* gwaon-wav.c: 1.15 2007/10/20 20:08:41 kichiki Exp
+	update for the new pv-complex.c.
+
+	* pv-complex-curses.h: 1.3 2007/10/20 20:07:32 kichiki Exp
+	* pv-complex-curses.c: 1.3 2007/10/20 20:06:45 kichiki Exp
+	update for the new pv-complex.c.
+	(pv_complex_curses): change the key-bindings for the loop range setting.
+
+	* pv.c: 1.14 2007/10/20 20:04:19 kichiki Exp
+	make the 'curses' mode default.
+	set the default hop size 512. (this is better for wider ranges of 
+	parameters.)
+
+	* pv-complex.h: 1.9 2007/10/20 20:01:56 kichiki Exp
+	* pv-complex.c: 1.13 2007/10/20 19:59:19 kichiki Exp
+	change the name of struct pv_complex_data by pv_complex.
+	(read_and_FFT_stereo): make the work area (left and right) static.
+	(pv_complex_play_resample): make the work area static.
+
+2007-10-15  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon-wav.c: 1.14 2007/10/15 06:20:52 kichiki Exp
+	(wav_key_press_event): adjust struct pv_complex_data *pv 
+	for pitch- and rate-changes, as well as hop-change.
+
+	* gwaon-play.c: 1.5 2007/10/15 06:19:13 kichiki Exp
+	simplify the handling of rate and pitch parameters (similar to 
+	pv-complex-curses.c).
+
+	* pv.c: 1.13 2007/10/15 06:17:56 kichiki Exp
+	update for pv-complex-curses.c.
+
+	* pv-complex-curses.h: 1.2 2007/10/15 06:17:11 kichiki Exp
+	* pv-complex-curses.c: 1.2 2007/10/15 06:16:48 kichiki Exp
+	simplify the handling of rate and pitch parameters.
+	(play_1msec_curses): now rate and pitch are not used here. 
+	those parameters are controled at the higher level routine, 
+	pv_complex_curses().
+	(pv_complex_curses): cut rate and pitch parameters from the argument.
+	those are controled through curses interface in this routine.
+
+	* pv-complex.h: 1.8 2007/10/15 06:12:11 kichiki Exp
+	* pv-complex.c: 1.12 2007/10/15 06:10:57 kichiki Exp
+	(pv_complex_change_rate_pitch): added.
+
+2007-10-14  Kengo Ichiki  <ichiki@tpr60>
+
+	* Makefile: 1.1 2007/10/14 06:33:48 kichiki Exp
+	added. this is for all -- waon, pv, gwaon.
+
+	* pv.c: 1.12 2007/10/14 06:32:24 kichiki Exp
+	add curses mode -- interactive phase vocoder.
+
+	* Makefile.pv: 1.5 2007/10/14 06:31:30 kichiki Exp
+	update for pv-complex-curses.c.
+
+	* pv-complex.c: 1.11 2007/10/14 06:29:07 kichiki Exp
+	* pv-loose-lock.c: 1.9 2007/10/14 06:27:28 kichiki Exp
+	* pv-freq.c: 1.8 2007/10/14 06:26:09 kichiki Exp
+	* pv-ellis.c: 1.8 2007/10/14 06:25:12 kichiki Exp
+	* pv-conventional.c: 1.10 2007/10/14 06:23:36 kichiki Exp
+	* gwaon-wav.c: 1.13 2007/10/14 06:22:11 kichiki Exp
+	update for ao-wrapper.c.
+
+	* ao-wrapper.h: 1.2 2007/10/14 06:20:17 kichiki Exp
+	* ao-wrapper.c: 1.4 2007/10/14 06:19:36 kichiki Exp
+	add 'verbose' in the argument.
+
+	* pv-complex-curses.h: 1.1 2007/10/14 06:18:34 kichiki Exp
+	* pv-complex-curses.c: 1.1 2007/10/14 06:17:43 kichiki Exp
+	added.
+
+2007-10-10  Kengo Ichiki  <ichiki@tpr60>
+
+	* pv.1: 1.1 2007/10/11 03:40:43 kichiki Exp
+	* waon.1: 1.1 2007/10/11 03:40:13 kichiki Exp
+	added.
+
+	* pv.c: 1.11 2007/10/11 02:19:30 kichiki Exp
+	update the help message.
+
+	* midi.c: 1.5 2007/10/11 02:18:38 kichiki Exp
+	correct typo.
+
+	* main.c: 1.9 2007/10/11 02:17:53 kichiki Exp
+	update the help message.
+
+2007-03-10  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.8.
+
+	* gwaon-wav.c: 1.12 2007/03/11 01:35:53 kichiki Exp
+	(create_wav): correct the initial value for pitch-shift to 0.
+
+	* gwaon-wav.c: 1.11 2007/03/11 01:25:23 kichiki Exp
+	(create_wav): add another scale widget for pitch-shifting.
+
+	* gwaon-play.c: 1.4 2007/03/11 01:18:27 kichiki Exp
+	update for new pv-complex.c.
+
+	* pv.c: 1.10 2007/03/11 01:13:22 kichiki Exp
+	now we can give both -rate and -pitch at the same time.
+
+	* pv-complex.h: 1.7 2007/03/11 01:16:25 kichiki Exp
+	* pv-complex.c: 1.10 2007/03/11 01:15:13 kichiki Exp
+	* pv-loose-lock.h: 1.4 2007/03/11 01:07:15 kichiki Exp
+	* pv-loose-lock.c: 1.8 2007/03/11 01:06:36 kichiki Exp
+	* pv-ellis.h: 1.3 2007/03/11 01:04:58 kichiki Exp
+	* pv-ellis.c: 1.7 2007/03/11 01:04:21 kichiki Exp
+	* pv-conventional.h: 1.6 2007/03/11 00:56:39 kichiki Exp
+	* pv-conventional.c: 1.9 2007/03/11 00:55:50 kichiki Exp
+	introducing three independent parameters hop_syn for synthesize, 
+	hop_ana for analyse, and hop_res for resample, now we can give
+	both -rate and -pitch at the same time.
+
+	* snd.c: 1.3 2007/03/10 20:52:35 kichiki Exp
+	* pv.c: 1.9 2007/03/10 20:52:35 kichiki Exp
+	* pv-loose-lock.c: 1.7 2007/03/10 20:52:35 kichiki Exp
+	* pv-freq.c: 1.6 2007/03/10 20:52:35 kichiki Exp
+	* pv-ellis.c: 1.6 2007/03/10 20:52:35 kichiki Exp
+	* pv-conventional.c: 1.8 2007/03/10 20:52:35 kichiki Exp
+	* pv-complex.c: 1.9 2007/03/10 20:52:35 kichiki Exp
+	* main.c: 1.8 2007/03/10 20:52:34 kichiki Exp
+	* hc.c: 1.6 2007/03/10 20:52:34 kichiki Exp
+	* gwaon-wav.c: 1.10 2007/03/10 20:52:34 kichiki Exp
+	* fft.c: 1.8 2007/03/10 20:52:34 kichiki Exp
+	* analyse.c: 1.7 2007/03/10 20:52:34 kichiki Exp
+	add malloc-check.
+
+	* gwaon-menu.c: 1.2 2007/03/10 20:42:17 kichiki Exp
+	house-keeping.
+
+	* gtk-color.c: 1.2 2007/03/10 20:40:31 kichiki Exp
+	(get_color): using not the pointer but GdkColor itself.
+
+	* ao-wrapper.c: 1.2 2007/03/10 20:37:21 kichiki Exp
+	(ao_write): calloc() causes the problem. use plain malloc() instead.
+
+	* memory-check.h: 1.1 2007/03/10 20:34:38 kichiki Exp
+	added for the check of malloc().
+
+2007-03-01  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.7.
+
+2007-02-28  Kengo Ichiki  <ichiki@tpr60>
+
+	* pv.c: 1.8 2007/02/28 08:42:26 kichiki Exp
+	set the hanning window as the default window.
+
+	* main.c: 1.7 2007/02/28 08:39:57 kichiki Exp
+	(main): bug fixed on shift of left[] for the mono case.
+	phase-difference correction is set by default, so replace the option
+	by -nophase.
+	hanning window is set by default.
+	those default setting would work well for most cases.
+	introduce new, experimental functionalities, drum-removal, and octave
+	removal.
+	(usage): update the descriptions.
+
+	* fft.h: 1.7 2007/02/28 08:34:23 kichiki Exp
+	* fft.c: 1.7 2007/02/28 08:33:56 kichiki Exp
+	(power_subtract_ave): added.
+	(power_subtract_octave): added.
+
+2007-02-27  Kengo Ichiki  <ichiki@tpr60>
+
+	* analyse.c: 1.6 2007/02/28 07:08:14 kichiki Exp
+	(note_intensity): bug fixed. if fp[] is given, it might be trapped
+	into the end-less loop.
+
+2007-02-24  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.6.
+
+	* Makefile.gwaon: 1.6 2007/02/25 07:05:19 kichiki Exp
+	* Makefile.pv: 1.4 2007/02/25 07:04:57 kichiki Exp
+	* Makefile.waon: 1.6 2007/02/25 07:04:34 kichiki Exp
+	use pkg-config.
+
+	* gwaon-wav.c: 1.9 2007/02/25 07:02:27 kichiki Exp
+	(create_wav): default WIN_spec_n is increased to 2048.
+	initialize pv->pitch_shift for sure.
+
+	* pv.c: 1.7 2007/02/25 06:52:31 kichiki Exp
+	update due to the name change of pv_conventional() in
+	pv-conventional.c.
+
+	* pv-conventional.h: 1.5 2007/02/25 06:48:11 kichiki Exp
+	* pv-conventional.c: 1.7 2007/02/25 06:46:17 kichiki Exp
+	(pv_conventional): change the name from pv().
+
+	* pv.c: 1.6 2007/02/25 06:41:15 kichiki Exp
+	add '-pitch' option.
+	change the order of the scheme.
+
+	* pv-complex.c: 1.8 2007/02/25 06:38:58 kichiki Exp
+	(pv_complex_play_resample): SRC_SINC_FASTEST is better than
+	SRC_SINC_BEST_QUALITY in this case.
+
+	* pv-complex.h: 1.6 2007/02/25 06:10:14 kichiki Exp
+	update due to the change of apply_FFT() in fft.c.
+	add 'window_scale' in struct pv_complex_data.
+
+	* pv-complex.c: 1.7 2007/02/25 06:09:18 kichiki Exp
+	update due to the change of apply_FFT() in fft.c.
+	it seems that the pitch-shifting is reasonably working.
+
+	* pv-ellis.c: 1.5 2007/02/25 06:06:40 kichiki Exp
+	update due to the change of apply_FFT() in fft.c.
+	house-keeping.
+	(pv_ellis): bug fixed for the case when t0 is two step ahead from nf0.
+
+	* pv-loose-lock.c: 1.6 2007/02/25 06:07:48 kichiki Exp
+	* pv-freq.c: 1.5 2007/02/25 06:04:46 kichiki Exp
+	update due to the change of apply_FFT() in fft.c.
+
+	* pv-conventional.h: 1.4 2007/02/25 06:03:38 kichiki Exp
+	* pv-conventional.c: 1.6 2007/02/25 06:03:12 kichiki Exp
+	(get_scale_factor_for_window): added.
+	(pv): use window_scale for the scaling factor for the superpositions.
+
+	* fft.c: 1.6 2007/02/25 05:59:47 kichiki Exp
+	(apply_FFT): change the definition of "scale" to the same of that in
+	windowing().
+
+	* pv-complex.h: 1.5 2007/02/25 03:42:54 kichiki Exp
+	* pv-complex.c: 1.6 2007/02/25 03:42:19 kichiki Exp
+	add pitch-shifting feature, but not working correctly yet...
+
+	* pv-loose-lock.h: 1.3 2007/02/25 03:40:09 kichiki Exp
+	* pv-loose-lock.c: 1.5 2007/02/25 03:39:39 kichiki Exp
+	* pv-ellis.h: 1.2 2007/02/25 03:38:51 kichiki Exp
+	* pv-ellis.c: 1.4 2007/02/25 03:38:27 kichiki Exp
+	add pitch-shifting feature.
+
+	* pv-conventional.h: 1.3 2007/02/25 03:37:11 kichiki Exp
+	* pv-conventional.c: 1.5 2007/02/25 03:36:46 kichiki Exp
+	(pv_play_resample): added for pitch-shifting.
+	(pv): use pv_play_resample() for pitch-shifting.
+
+2007-02-23  Kengo Ichiki  <ichiki@tpr60>
+
+	* pv.c: 1.5 2007/02/23 07:59:58 kichiki Exp
+	(usage): write the output file format, flac, explicitly.
+
+	* Makefile.waon: 1.5 2007/02/23 07:57:59 kichiki Exp
+	remove sox-wav.c.
+
+	* analyse.c: 1.5 2007/02/23 07:56:26 kichiki Exp
+	(init_patch): use libsndfile instead of sox-wav.c.
+	Note that this patch function is not tested.
+
+	* gwaon-wav.c: 1.8 2007/02/23 07:39:36 kichiki Exp
+	(wav_key_press_event): add Q/q to change phase-lock mode for PV.
+
+	* gwaon-play.c: 1.3 2007/02/23 07:37:21 kichiki Exp
+	(play_1msec): pv->flag_lock is used so that we can switch the mode
+	dynamically now.
+
+	* pv-complex.h: 1.4 2007/02/23 07:35:48 kichiki Exp
+	* pv-complex.c: 1.5 2007/02/23 07:35:15 kichiki Exp
+	for struct pv_complex_data, delete flag_run and add flag_left and
+	flag_right instead.
+	also flag_lock is added to specify the phase lock mode.
+	(pv_complex_play_step): bug fixed for zero signals.
+	(apply_invFFT_mono): split into each channel from 
+	apply_invFFT_stereo().
+	also, scale in the argument is now used in the code.
+
+2007-02-22  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon-play.c: 1.2 2007/02/23 07:00:36 kichiki Exp
+	(play_1msec): bug fixed on the range check for the looping.
+
+	* main.c: 1.6 2007/02/23 03:12:49 kichiki Exp
+	(usage): add web information.
+
+	* Makefile.gwaon: 1.5 2007/02/23 02:31:29 kichiki Exp
+	use pv-complex.c instead of gwaon-pv.c (the contents are same).
+
+	* Makefile.pv: 1.3 2007/02/23 02:29:33 kichiki Exp
+	use ao-library instead of esd-library.
+	cut esd-wrapper.o and pv-loose-lock-complex.o.
+
+	* pv.c: 1.4 2007/02/23 02:29:06 kichiki Exp
+	cut the include of pv-loose-lock-complex.h.
+
+	* sox-wav.h: 
+	* sox-wav.c: 
+	removed. now we are using sndfile.
+
+	* gwaon-pv.h: 
+	* gwaon-pv.c: 
+	removed. all contents are in the new pv-complex.c right now.
+
+	* esd-wrapper.h: 
+	* esd-wrapper.c: 
+	removed.
+	now all routines in WaoN use ao-wrapper.c (which also covers esd, BTW).
+
+	* pv-loose-lock-complex.h: 
+	* pv-loose-lock-complex.c: 
+	removed.
+	use the unified pv_complex() in pv-complex.c with flag_lock = 1.
+
+	* gwaon-esd.h: 
+	* gwaon-esd.c: 
+	rename to gwaon-play.[ch].
+
+	* gwaon-wav.h: 1.3 2007/02/23 02:16:07 kichiki Exp
+	* gwaon-wav.c: 1.7 2007/02/23 02:15:36 kichiki Exp
+	(update_win_wav): house-keeping for drawing routines; split for
+	each sub panels.
+	(draw_play_indicator): added to draw indicator for playing position.
+
+	* gwaon-play.h: 1.1 2007/02/23 02:14:51 kichiki Exp
+	* gwaon-play.c: 1.1 2007/02/23 02:14:27 kichiki Exp
+	rename from gwaon-esd.[ch].
+	change the name play_1msec() from play_esd().
+
+	* pv-complex.h: 1.3 2007/02/23 02:10:57 kichiki Exp
+	* pv-complex.c: 1.4 2007/02/23 02:10:25 kichiki Exp
+	contents on struct pv_complex_data are moved from gwaon-pv.c.
+	(pv_complex): now using pv_complex_play_step().
+	this can handle loose phase lock scheme, as well.
+
+	* pv-loose-lock.c: 1.4 2007/02/23 01:45:56 kichiki Exp
+	* pv-freq.c: 1.4 2007/02/23 01:49:09 kichiki Exp
+	* pv-ellis.c: 1.3 2007/02/23 01:50:45 kichiki Exp
+	* pv-conventional.c: 1.4 2007/02/23 01:56:26 kichiki Exp
+	use ao-library instead of esd-library.
+	bug fixed on freeing memories.
+
+	* pv.c: 1.3 2007/02/23 01:45:19 kichiki Exp
+	default FFT size is increased to 2048.
+	use unified pv_complex() routine instead of old pv_complex() and
+	pv_loose_lock_complex().
+
+	* hc.c: 1.4 2007/02/23 01:44:37 kichiki Exp
+	(HC_puckette_lock): bug fixed.
+
+2007-02-19  Kengo Ichiki  <ichiki@tpr60>
+
+	* ao-wrapper.h: 1.1 2007/02/20 05:03:30 kichiki Exp
+	* ao-wrapper.c: 1.1 2007/02/20 05:01:59 kichiki Exp
+	added.
+
+	* Makefile.gwaon: 1.4 2007/02/20 05:01:07 kichiki Exp
+	use ao library instead of esd for audio output.
+	therefore, esd-wrapper.c is removed.
+
+	* gwaon-esd.c: 1.2 2007/02/20 05:00:41 kichiki Exp
+	use ao library instead of esd for audio output.
+	(play_esd): play loop (not once).
+
+	* gwaon-wav.c: 1.6 2007/02/20 05:00:19 kichiki Exp
+	* gwaon-pv.h: 1.2 2007/02/20 04:59:50 kichiki Exp
+	* gwaon-pv.c: 1.2 2007/02/20 04:59:27 kichiki Exp
+	use ao library instead of esd for audio output.
+
+2007-02-16  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.5.
+
+	* pv-loose-lock-complex.h: 1.2 2007/02/17 05:37:37 kichiki Exp
+	* pv-loose-lock-complex.c: 1.3 2007/02/17 05:36:58 kichiki Exp
+	* pv-loose-lock.h: 1.2 2007/02/17 05:36:29 kichiki Exp
+	* pv-loose-lock.c: 1.3 2007/02/17 05:36:03 kichiki Exp
+	* pv-freq.h: 1.2 2007/02/17 05:35:09 kichiki Exp
+	* pv-freq.c: 1.3 2007/02/17 05:34:41 kichiki Exp
+	* pv-complex.h: 1.2 2007/02/17 05:33:53 kichiki Exp
+	* pv-complex.c: 1.3 2007/02/17 05:33:27 kichiki Exp
+	* pv-conventional.h: 1.2 2007/02/17 05:32:37 kichiki Exp
+	* pv-conventional.c: 1.3 2007/02/17 05:31:49 kichiki Exp
+	* pv.c: 1.2 2007/02/17 05:31:06 kichiki Exp
+	change the meaning of rate in the opposite way, that is,
+	larger is faster right now (same as in gwaon).
+
+	* Makefile.gwaon: 1.3 2007/02/17 04:59:50 kichiki Exp
+	* gwaon-pv.h: 1.1 2007/02/17 04:58:36 kichiki Exp
+	* gwaon-pv.c: 1.1 2007/02/17 04:58:09 kichiki Exp
+	* gwaon-esd.h: 1.1 2007/02/17 04:57:37 kichiki Exp
+	* gwaon-esd.c: 1.1 2007/02/17 04:56:59 kichiki Exp
+	added for play-back function with phase vocoder tempo-change function.
+
+	* gwaon-wav.c: 1.5 2007/02/17 04:55:25 kichiki Exp
+	(wav_key_press_event): add play-back function.
+	(wav_pv_rate): add tempo-change function.
+	(create_wav): add vscale for tempo-change function.
+
+2007-02-15  Kengo Ichiki  <ichiki@tpr60>
+
+	* Makefile.pv: 1.2 2007/02/16 06:31:14 kichiki Exp
+	meaningless '\' is removed.
+
+	* pv-loose-lock-complex.c: 1.2 2007/02/16 06:29:55 kichiki Exp
+	* pv-complex.c: 1.2 2007/02/16 06:29:14 kichiki Exp
+	use esd_init_16_stereo_strem_play().
+	bug fixed on the handling at the initial step.
+
+	* pv-loose-lock.c: 1.2 2007/02/16 06:27:28 kichiki Exp
+	* pv-conventional.c: 1.2 2007/02/16 06:26:28 kichiki Exp
+	* pv-ellis.c: 1.2 2007/02/16 06:25:50 kichiki Exp
+	* pv-freq.c: 1.2 2007/02/16 06:25:09 kichiki Exp
+	use esd_init_16_stereo_strem_play().
+
+	* esd-wrapper.h: 1.3 2007/02/16 06:23:19 kichiki Exp
+	* esd-wrapper.c: 1.3 2007/02/16 06:23:40 kichiki Exp
+	(esd_init_16_stereo_strem_play): added.
+
+	* hc.h: 1.3 2007/02/16 06:21:54 kichiki Exp
+	* hc.c: 1.3 2007/02/16 06:22:17 kichiki Exp
+	add some comments on usage.
+
+2007-02-13  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.4.
+
+	* esd-wrapper.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* esd-wrapper.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-loose-lock-complex.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-loose-lock-complex.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-loose-lock.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-loose-lock.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-freq.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-freq.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-ellis.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-ellis.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-complex.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-complex.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-conventional.h: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv-conventional.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	* pv.c: 1.1 2007/02/14 03:46:11 kichiki Exp
+	imported from working directory.
+
+	* hc.h: 1.2 2007/02/14 03:33:53 kichiki Exp
+	* hc.c: 1.2 2007/02/14 03:33:15 kichiki Exp
+	(polar_to_HC_scale): added for pv_freq().
+	(HC_complex_phase_vocoder): added.
+
+	* fft.h: 1.6 2007/02/14 03:31:10 kichiki Exp
+	* fft.c: 1.5 2007/02/14 03:30:13 kichiki Exp
+	(apply_FFT): added.
+
+2007-02-11  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon-wav.c: 1.3 2007/02/11 23:51:30 kichiki Exp
+	house-keeping.
+	(midi_to_freq, freq_to_midi, midi_to_logf, logf_to_midi): moved to 
+	midi.c.
+
+	* main.c: 1.5 2007/02/11 23:49:46 kichiki Exp
+	(main): add some exmerimental stuff, not finished yet.
+
+	* analyse.h: 1.4 2007/02/11 23:46:41 kichiki Exp
+	* analyse.c: 1.4 2007/02/11 23:46:15 kichiki Exp
+	(average_FFT_into_midi, pickup_notes): added, now experimenting.
+	(output_midi): moved to midi.c.
+
+	* midi.h: 1.4 2007/02/11 23:37:33 kichiki Exp
+	* midi.c: 1.4 2007/02/11 23:37:08 kichiki Exp
+	house-keeping.
+	(midi_to_freq, freq_to_midi, midi_to_logf, logf_to_midi): moved from
+	gwaon-wav.c.
+	(output_midi): moved from analyse.c.
+
+2007-02-10  Kengo Ichiki  <ichiki@tpr60>
+
+	* gwaon-wav.c: 1.2 2007/02/11 02:23:33 kichiki Exp
+	add phase-difference adjustment.
+	now we have three modes, plain FFT, FFT with PV, and PV-FFT.
+	some parameters are changable by key-bindings.
+	(make_color_map): bug fixed and add 1 segment from black to blue.
+
+	* snd.c: 1.2 2007/02/11 02:21:27 kichiki Exp
+	(sndfile_read_at): add a fail-safe check.
+
+2007-02-09  Kengo Ichiki  <ichiki@tpr60>
+
+	* gtk-color.h: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gtk-color.c: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-wav.h: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-wav.c: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-about.h: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-about.c: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-menu.h: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon-menu.c: 1.1 2007/02/09 23:03:59 kichiki Exp
+	* gwaon.c: 1.1 2007/02/09 23:03:59 kichiki Exp
+	imported from working directory.
+
+2007-02-08  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.3.
+
+	* main.c: 1.4 2007/02/09 06:03:18 kichiki Exp
+	use libsndfile to handle input file.
+
+	* fft.h: 1.5 2007/02/09 06:01:04 kichiki Exp
+	* fft.c: 1.4 2007/02/09 06:00:23 kichiki Exp
+	(windowing): added.
+	(fprint_window_name): added.
+	(FFTW2): use HC_to_amp2() in hc.c.
+
+	* snd.h: 1.1 2007/02/09 05:58:38 kichiki Exp
+	* snd.c: 1.1 2007/02/09 05:58:14 kichiki Exp
+	* hc.h: 1.1 2007/02/09 05:56:32 kichiki Exp
+	* hc.c: 1.1 2007/02/09 05:56:08 kichiki Exp
+	imported from phase vocoder project.
+
+2007-02-04  Kengo Ichiki  <ichiki@tpr60>
+
+	* main.c: 1.3 2007/02/05 05:38:06 kichiki Exp
+	(usage): correct the midi notes in -t and -b options.
+	(main): add --phase option to correct frequency by phase difference.
+	default hop (former shft) is now len/4 (len before).
+
+	* analyse.c: 1.3 2007/02/05 05:37:22 kichiki Exp
+	(note_intensity): add fp[] for modifief frequencies in the argument.
+
+	* midi.c: 1.3 2007/02/05 05:36:44 kichiki Exp
+	on comments, octave of midi was wrong. (code is fine.)
+
+2006-09-22  Kengo Ichiki  <ichiki@tpr60>
+
+	* Release 0.2.
+
+Mon Jan 11 00:33:39 1999  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* TIPS: complete PART II, 2) Policy of Selection of Note
+	and spell-check.
+
+Thu Dec 31 00:23:34 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* main.c: 3.16 1998/12/31 09:24:27 ichiki
+	modefy -k option to define peak_threashold by the option.
+
+	* fft.c: 1.8 1998/12/31 08:23:15 ichiki
+	add comments on reference of window functions.
+
+	* TIPS: revision 1.2 date: 1998/12/31 09:26:27;  author: ichiki
+	make contents, add sections on selection of notes.
+
+	* INSTALL: created.
+
+Wed Dec 30 23:33:20 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* main.c: 3.15 1998/12/31 07:31:56 ichiki
+	correct explanation of '-a' option.
+
+Tue Dec 29 00:41:51 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* TIPS: revised on detection of on/off-event.
+
+	* main.c: 3.13 1998/12/29 08:46:06 ichiki
+	add the feature of -k option.
+
+	* analyse.c: 1.13 1998/12/29 08:43:26 ichiki
+	(incr_ia_note): added for simplicity.
+	(chk_note_on_off): add the feature of -k option, and refine totally.
+
+Mon Dec 28 00:24:00 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* add GPL message in each sources for release.
+
+	* main.c (main): 3.11 1998/12/28 08:28:23 ichiki
+	modefy way of getting on/off event.
+	modefy for change of treaste of cut-off.
+
+	* analyse.c: 1.11 1998/12/28 08:26:04 ichiki
+	(chk_note_on_off): modefy way of getting on/off event.
+	(note_intensity): modefy treaste of cut-off.
+
+Sun Dec 27 15:23:46 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* main.c: 3.9 1998/12/28 00:58:57 ichiki
+	change -a (--absolute) option into -r (--relative)
+	and add -a (--adjust) option for pitch_shift function.
+
+	* midi.c: 1.6 1998/12/28 00:56:46 ichiki
+	(get_note): add pitch_shift function.
+
+	* main.c: 3.8 1998/12/27 23:49:26 ichiki
+	add -a (--absolute) option.
+
+	* analyse.c: 1.9 1998/12/27 23:46:58 ichiki
+	(note_intensity): add -a (--absolute) option.
+	debug on patch substruction.
+
+Sat Dec 26 00:54:30 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* main.c: finally modefy RCS file (when recovered from the accident,
+	tail part seems to be missing).
+	$ diff main.c,v main.c,v.orig 
+	2033c2033
+	< a375 14
+	---
+	> a375 18
+	2048d2047
+	< @
+
+	* fft.c: 1.5 1998/12/27 04:56:41 ichiki
+	add Blackman window (just forgot).
+
+	* main.c: 3.5 1998/12/27 03:16:01 ichiki
+	implementation with infinite_array.
+
+	* analyse.c: 1.6 1998/12/27 03:14:50 ichiki
+	(init_ia_note): implementation with infinite_array.
+	(append_ia_note): implementation with infinite_array.
+
+	* analyse.c: * 1.5 1998/12/26 23:00:19 ichiki
+	(note_intensity): revised for patch code.
+	(patch_power): initial creation.
+	(init_patch):  initial creation.
+
+	* main.c: 3.4 1998/12/26 23:03:37 ichiki
+	remove -p (interpolation) option, because this has
+	no effects to improve analysis.
+
+	* fft.c: 1.4 1998/12/26 08:56:26 ichiki
+	add 2 windows from "Digital Filters and Signal Processing"
+	by L. B. Jackson.
+
+Sun Dec 20 12:40:27 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* main.c : Revision 3.3  1998/12/21 07:21:05  ichiki
+	delete options -a and -nsa.
+	support stdin as wav (in order to use sox).
+
+	* fft.c: Revision 1.3  1998/12/21 06:58:21  ichiki
+	delete option -nsa and flag nsaflag.
+
+	* analyse.c: Revision 1.4  1998/12/21 06:04:16  ichiki
+	support stdout.
+
+	* midi.c : Revision 1.3  1998/12/20 23:24:34  ichiki
+	restore sequential version in order to support stdout.
+	(smf_note_on): 
+	(smf_note_off): 
+	revised according to [read/write]_var_len().
+	(write_var_len): 
+	(read_var_len): 
+	created from scratch with random-accessibility.
+
+	* main.c: Revision 3.2  1998/12/20 20:16:52  ichiki
+	rename main file 'wav2mid.c'
+	change output midi file from FILE (fopen) to fd (open)
+	-- random accessible.
+
+	* analyse.c: Revision 1.3  1998/12/20 20:46:26  ichiki
+	* midi.c:  * Revision 1.2 1998/12/20 20:44:01 ichiki
+	change output midi file from FILE (fopen) to fd (open)
+	-- random accessible.
+
+Sat Dec 19 00:05:27 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* wav2mid.c: revise according to the change of fft.c.
+
+	* fft.c : 1.2 1998/12/19 06:18:14 ichiki
+	(power_spectrum_fftw): create to replace FFT engine from
+	NR four1() to rfftw_one() in FFTW library.
+
+Sun Dec 13 18:36:36 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* wav2mid.c: 
+	revised according to 'analyse.c'
+
+	* analyse.c: 
+	routines to analyse power spectrum and output notes.
+
+Sat Dec 12 1998  Kengo ICHIKI  <ichiki@konakia.che.caltech.edu>
+
+	* wav2mid.c: 3.1 1998/12/13 10:06:54 ichiki
+	Recover the accidental delete, at last.
+	wav2mid.c is directly recovered from disk image, but
+	the following subroutines are rewritten from scrach!
+
+	* sox-wav.c: 1.1 1998/12/13 10:07:49 ichiki
+	routines to read wav file borrowed from 'sox-12.15' package.
+	most of all are in wav.c.
+	delete ADPCM support (for simplicity).
+
+	* midi.c: 1.1 1998/12/13 09:44:56 ichiki
+	routines to write standard MIDI file.
+	written from scrach based on documentation on standard MIDI format.
+	(mostly on SMF 0.06)
+
+	* fft.c: 1.1 1998/12/13 10:08:35 ichiki
+	routines to calculate spectrum by FFT.
+	core routine is in Numerical Recipes in C.
+	-- from original log --
+	'95/11/29 'twofft,realft,correl' routines are added
+	          devide into two packages
+	'94/08/22 'four1' routine debug
+	    08/19 'fourn' routine debug
+	'94/05/20
+
+	* spline.c: 1.1 1998/12/13 09:45:08 ichiki
+	routines to interpolate data by spline.
+	core routines is in Numerical Recipes in C.
+
+-- from wav2mid.c RCS Log --
+
+Revision 2.3  1996/12/05 10:25:39  ichiki
+	revise -c option : not absolute value but the ratio to the average
+	add options -t and -l : range of searching notes
+
+Revision 2.2  1996/12/05 06:10:19  ichiki
+	add options
+	   -o output file
+	   -a all note
+	debug in definition of i0,i1
+	enlarge buffers
+	 	NNOTES -> 128 (maximum)
+		NSAPMLE -> 8192
+		NMIDBUF -> 20000
+
+Revision 2.1  1996/12/04 11:30:28  ichiki
+	finish ver.1 series
+
+Revision 1.3  1996/12/04 09:50:08  ichiki
+	add and revise the following options
+		-n : "change periodic copy" to "interpolation by 'spline'"
+		-s : shift step option
+		-c : if not define, use 'average' as cutlim
+	debug on 'idt',that is, interval between the notes
+
+Revision 1.2  1996/12/03 17:24:37  ichiki
+	fist version finish!
+	 	bug fix,
+		-n -p option,
+		continuous note,
+		log-separated getnote table
+
+Revision 1.1  1996/12/03 12:17:28  ichiki
+	Initial revision
+

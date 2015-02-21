@@ -1,0 +1,23 @@
+
+./waonc -i ../test-files/ca-doremi.wav -o ca3.mid -t 80 -b 64
+Format: Microsoft WAV format (little endian default).
+Subtype: Signed 16 bit data
+Endian type: Default file endian-ness.
+   Frames:             187392
+   Samplerate:         44100
+   Channels:           1
+   Sections:           1
+   Seekable:           1
+Segmentation fault
+
+% ./waonc -i ../test-files/ca-doremi.wav -o peak-64.mid -k 64
+Format: Microsoft WAV format (little endian default).
+Subtype: Signed 16 bit data
+Endian type: Default file endian-ness.
+   Frames:             187392
+   Samplerate:         44100
+   Channels:           1
+   Sections:           1
+   Seekable:           1
+Segmentation fault
+

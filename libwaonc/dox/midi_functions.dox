@@ -1,0 +1,46 @@
+/******************************************************************************
+ * midi_functions.dox
+ *-----------------------------------------------------------------------------
+ *
+ * \library    waonc
+ * \author     Chris Ahlstrom
+ * \version    1.1
+ * \date       2013-12-01
+ * \update     2013-12-01
+ * \license    GNU GPL 2.0 and above
+ *
+ *------------------------------------------------------------------------*//**
+
+\file    midi_functions.dox
+
+This document describes the functions and parameters of the midi module.
+
+\page    midi_page The MIDI Module
+
+\section midi_intro Introduction to the MIDI Module
+
+To be written.
+
+\section midi_struct MIDI Structure
+
+The waon_midi_t type-definition provides a buffer for midi (once the
+application allocates it), the FFT-window-length steps, events, and velocity.
+We've also added storage for the minimum and maximum note (pitch) values
+generated, and a frequency-bin (histogram) array to indicate how many midi
+of each pitch were generated.
+
+\section midi_window MIDI Options
+
+The <code>midi</code> module has the following options:
+
+   -  "--xxx".
+      This option indicates ...
+
+
+*//*-------------------------------------------------------------------------*/
+
+/*****************************************************************************
+ * midi_functions.dox
+ * --------------------------------------------------------------------------
+ * vim: ts=3 sw=3 et syntax=doxygen
+ *---------------------------------------------------------------------------*/

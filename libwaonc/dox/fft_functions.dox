@@ -1,0 +1,82 @@
+/******************************************************************************
+ * fft_functions.dox
+ *-----------------------------------------------------------------------------
+ *
+ * \library    waonc
+ * \author     Chris Ahlstrom
+ * \version    1.1
+ * \date       2013-11-30
+ * \update     2013-11-30
+ * \license    GNU GPL 2.0 and above
+ *
+ *------------------------------------------------------------------------*//**
+
+\file    fft_functions.dox
+
+This document describes the functions and parameters of the fft module.
+
+\page    fft_page The FFT Module
+
+\section fft_intro Introduction to the FFT Module
+
+To be written.
+
+\section fft_window FFT Options
+
+The <code>fft</code> module has the following options:
+
+   -  "-n" or "--window-length".
+      This option specifies the length of the FFT window.  It defaults to
+      2048.
+   -  "-w" or "--window".
+      This option specifies the function that shapes the FFT window, to
+      reduce the levels of transient frequencies.
+
+The effect of reducing the size of this window would be to track shorter
+time-intervals of frequency changes.  We're not sure if this has a
+systematic effect on the MIDI file that is created.
+
+\subsection fft_window_length FFT Window Length
+
+\verbatim
+   -n 2048
+   --window-length 2048
+\endverbatim
+
+This option provides the sampling number for the wave file.  It provides
+the number of sample in 1 "step".  It is also known as the length of the FFT
+window.  The default value of this parameter is 2048.
+
+\subsection fft_window_function FFT Window Function
+
+\verbatim
+   -w 3
+   -w hanning
+   --window 3
+   --window hanning
+\endverbatim
+
+This options selects the FFT windowing function.  Either the digit or
+name (at least 3 characters) can be provided:
+
+\verbatim
+   0  No window ('none')
+   1  'Parzen' window
+   2  'Welch' window
+   3  'Hanning' window [default]
+   4  'Hamming' window
+   5  'Blackman' window
+   6  'Steeper' 30-dB/octave rolloff window
+\endverbatim
+
+These values are provided by the filter_window_t enumeration defined in
+the fft.h file.
+
+
+*//*-------------------------------------------------------------------------*/
+
+/*****************************************************************************
+ * fft_functions.dox
+ * --------------------------------------------------------------------------
+ * vim: ts=3 sw=3 et syntax=doxygen
+ *---------------------------------------------------------------------------*/

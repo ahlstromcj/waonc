@@ -1,0 +1,51 @@
+# Makefile for gWaoN
+# Copyright (C) 1998-2007 Kengo Ichiki <kichiki@users.sourceforge.net>
+# $Id: Makefile.gwaon,v 1.7 2007/11/05 02:39:38 kichiki Exp $
+
+LIBS    =\
+	`pkg-config --libs sndfile` \
+	`pkg-config --libs fftw3` \
+	`pkg-config --libs samplerate` \
+	-lm
+
+CFLAGS  =\
+	-Wall -O3 \
+	`pkg-config --cflags gtk+-2.0` \
+	`pkg-config --cflags gdk_pixbuf` \
+	`pkg-config --cflags ao` \
+	`pkg-config --cflags sndfile` \
+	`pkg-config --cflags fftw3` \
+	`pkg-config --cflags samplerate`
+
+LDFLAGS      = 
+
+CC	= cc
+LD	= $(CC)
+RM	= rm -f
+
+
+all:	gwaon
+
+OBJ = gwaon.o \
+	gwaon-menu.o \
+	gwaon-about.o \
+	gwaon-wav.o \
+	gwaon-play.o \
+	pv-complex.o \
+	pv-conventional.o \
+	ao-wrapper.o \
+	gtk-color.o \
+	snd.o \
+	hc.o \
+	fft.o \
+	midi.o
+
+
+gwaon:	$(OBJ)
+	$(LD) $(LDFLAGS) -o gwaon $(OBJ) $(LIBS)
+
+clean:
+	$(RM) *.o
+
+distclean:
+	$(RM) gwaon *.o
