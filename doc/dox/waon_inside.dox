@@ -1,0 +1,169 @@
+/******************************************************************************
+ * waon_inside.dox
+ *-----------------------------------------------------------------------------
+ *
+ *    This module provides no code.  It provides only a Doxygen "Doxygen
+ *    information" page.
+ *
+ *------------------------------------------------------------------------*//**
+
+\file       waon_inside.dox
+\library    Waonc Project
+\page       waonc_main Waonc 0.11
+\date       2015-03-28
+\updates    2015-03-28
+
+This section project Kengo's tips on using Waon
+
+@section waon_inside Inside Waonc
+
+Intro!  This description is Kengo's, with additional material.
+
+@subsection waon_inside_select Policy of Event Selections
+
+@subsubsection waon_inside_select_onoff Policy of On/Off Event Selections
+
+Selection of sound in frequency domain is relatively straightforward,
+but there seems to be no general way of doing that in the time domain.
+It is obvious that this determines the quality of this kind of software.
+If you have some idea, please let me (Kengo) know!
+
+At present, I'm trying two ways to detect on/off events:
+
+   -# Detection of over-threshold (no option -k/--peak), where a note-on
+      event is detected when the power is larger than the on-threshold value
+      hardwired in the source code.
+   -# Peak detection (option -k/--peak).
+
+A. Off-event:
+
+   An off-event is generated if (i_lsts[i] <= off_threshold), 
+   where off_threshold = 0 as defined in the source code.
+   Each 'i_lsts[]' value is velocity hopefully scaled in the range [0, 127].
+
+
+@verbatim
+         velocity ^      ..
+                2 |.     ..
+                1 |..   ...
+off_threshold ->0 +--*------> time
+                     ^
+                     |
+                      --- the position where the off-event is placed
+@endverbatim
+
+
+B. On-event:
+
+B.1. If this note is off at last step, and if (i_lsts[i] > on_threshold),
+     then an on-event is generated:
+
+@verbatim
+         velocity ^       
+               10 |.      .
+                9 |.     *.
+on_threshold -> 8 |.     ..
+                  ---------
+                2 |.     ..
+                1 |..   ...
+off_threshold ->0 +--*------> time
+                         ^
+                         |
+                          --- the position where on-event is placed
+@endverbatim
+
+B.2. If this note is on at last step:
+
+B.2.1. With and without -k option, and if (i_lsts[i] > (*on_lst[i])),
+       where *on_lst[i] is the velocity of this note, then the
+       velocity is overwritten by i_lsts[i].
+
+@verbatim
+         velocity ^       
+               11 |.        
+               10 |.      *.
+                9 |.     *..
+on_threshold -> 8 |.     ...
+                  ----------
+                2 |.     ...
+                1 |..   ....
+off_threshold ->0 +--*---*---> time
+                          ^ 
+                          |
+                           --- velocity is overwritten by larger values here
+@endverbatim
+
+B.2.2. Only with -k option, if (i_lsts[i] >= (*on_lst[i] + peak_threshold))
+       where peak_threshold is given by -k (--peak) option.
+
+@verbatim
+            velocity ^       
+                  36 |            *.
+                  35 |            ...
+ peak_threshold-->34 |            ...
+      \           33 |            ...
+        \            ----------------
+          \       11 |.           ...
+            \---->10 |.      *..  ...
+                   9 |.     *...  ...
+   on_threshold -> 8 |.     .........
+                     ----------------
+                   2 |.     .........
+                   1 |..   ..........
+   off_threshold ->0 +--*---*---------> time
+                                  ^
+                                  |
+                                   --- off- & on-event is placed here
+@endverbatim
+
+The resultant MIDI signal depends on the -k/--peak option:
+
+Without the -k/--peak option?
+
+@verbatim
+    |--    O<36>----
+    |  X
+    +--*---*-----*---> time
+@endverbatim
+
+With the -k/--peak option:
+
+@verbatim
+    |--    O<10>-O<36>-
+    |  X         X
+    +--*---*-----*---> time
+@endverbatim
+
+where
+
+@verbatim
+    O : note-on event
+    X : note-off event
+@endverbatim
+
+@subsubsection waon_inside_select_note Policy of Note Event Selections
+
+Policy of Selection of Note (Frequency)
+
+A. Without --patch option:
+
+    -# Search for the maximum in the power spectrum and get the frequency.
+    -# Set 0 into the power spectrum around the maximum.
+       This area subtracted is up to the frequency of the local minimum
+       of power in both sides.
+    -# Search again until there is no more peak in power spectrum.
+
+B. With --patch option:
+
+    -# Search for the maximum in the power spectrum and get the frequency.
+    -# Subtract the power of the --patch option, scaled to the maximum
+      frequency.
+    -# Search again until there is no peak in power spectrum.
+
+ *//*-------------------------------------------------------------------------*/
+
+/******************************************************************************
+ * waon_inside.dox
+ *----------------------------------------------------------------------------
+ * vim: ts=3 sw=3 et syntax=doxygen
+ *//*-------------------------------------------------------------------------*/

@@ -10,13 +10,19 @@
 
    This file is a copy of the main license file.
 
-\page       waonc_suite_license_subproject Licenses, waonc project.
+\page       waonc_suite_license_subproject Licenses, Waonc project.
 \library    waonc_suite and its libraries, applications, and documents
 \author     Chris Ahlstrom
 \version    $Revision$ (1.1.0)
 \date       2013-11-13
-\update     2013-11-13
+\update     2015-03-28
 \license    $XPC_SUITE_GPL_LICENSE$
+
+Included in the Waonc project are notes and code from the Waon project:
+
+@verbatim
+   Copyright (C) 1998,1999 Kengo Ichiki <kichiki@users.sourceforge.net>
+@endverbatim
 
 \section waonc_suite_license_text License Terms for the waonc project.
 

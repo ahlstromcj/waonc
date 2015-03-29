@@ -1,0 +1,57 @@
+/******************************************************************************
+ * waon_tips.dox
+ *-----------------------------------------------------------------------------
+ *
+ *    This module provides no code.  It provides only a Doxygen "Doxygen
+ *    information" page.
+ *
+ *------------------------------------------------------------------------*//**
+
+\file       waon_tips.dox
+\library    Waonc Project
+\mainpage   waonc_main Waonc 0.11
+\date       2013-10-27
+\updates    2015-03-28
+
+This section provides Kengo's tips on using Waon(c).
+
+@section waon_tips Tips for Waonc
+
+I think that the default setting (2048 samples for FFT, no window, etc)
+is enough to judge how "waon" works.
+
+Here are some more tips.
+
+@subsection waon_tips_01 Example 1, Finer Resolution
+
+If you need more resolution in time, use the -s (--shift) option as follows:
+
+@verbatim
+   $ ./waon -i waltz4DB.wav -o waltz4.mid -w 3 -n 4096 -s 2048
+@endverbatim
+
+@subsection waon_tips_02 Example 2, Piping to Timidity
+
+Pipe the waonc output to timidity to play the resultant MIDI file:
+
+@verbatim
+   $ cat x.wav | ./waon -i - -o - | timidity -id -
+@endverbatim
+
+@subsection waon_tips_03 Example 3, Piping MP3 Files Through Sox and Waonc
+
+If you want to analyse an MP3 file quickly:
+
+@verbatim
+   $ mpg123 -m -s x.mp3 | sox -t raw -r 44100 -s -w - -t wav - | ./waonc -i - 
+@endverbatim
+
+More tips to come!
+
+ *//*-------------------------------------------------------------------------*/
+
+/******************************************************************************
+ * waon_tips.dox
+ *----------------------------------------------------------------------------
+ * vim: ts=3 sw=3 et syntax=doxygen
+ *//*-------------------------------------------------------------------------*/

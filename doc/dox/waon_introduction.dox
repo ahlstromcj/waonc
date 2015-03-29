@@ -11,75 +11,150 @@
 \library    Waonc Project
 \mainpage   waonc_main Waonc 0.11
 \date       2013-10-27
-\updates    2013-10-27
+\updates    2015-03-28
 
 Waonc is a minor cleanup and documentation of the waon
 application suite.
 
+@section waon_introduction Introduction to Waonc
 
 WaoN is a Wave-to-Notes transcriber, a converter from a sound file to midi
-file. This version, waonc, is a mild extension of the original program.
+file. This version, Waonc, is a mild extension and refactoring 
+of the original program.
 
-Usage: waonc [option ...]
+Included in the Waonc project are notes and code from the Waon project:
 
-Options:
+@verbatim
+   Copyright (C) 1998,1999 Kengo Ichiki <kichiki@users.sourceforge.net>
+@endverbatim
+
+Usage: <b>waonc [option ...]</b>
+
+INFORMATION OPTIONS:
+
+@verbatim
   -h --help         Print this help.
+@endverbatim
+
+@verbatim
   -v, --version     Print version information.
+@endverbatim
 
 OPTIONS FOR FILES:
 
-  -i --input        Input WAV file (default: stdin).
-  -o --output       Output MID file (default: 'output.mid').
+@verbatim
+  -i --input        Input WAV file (Default: stdin).
+@endverbatim
+
+@verbatim
+  -o --output       Output MID file (Default: 'output.mid').
                     Options -i and -o have argument '-' as stdin/stdout.
-  -p --patch        Patch file (default: no patch).
+@endverbatim
+
+@verbatim
+  -p --patch        Patch file (Default: no patch). The patch file may help
+                    to reduce multiple notes containing the original sound.
+@endverbatim
 
 FFT OPTIONS:
 
-  -n                Sampling number for WAV in 1 step (default: 2048).
-  -w --window       0 no window
-                    1 parzen window
-                    2 welch window
-                    3 hanning window (default)
-                    4 hamming window
-                    5 blackman window
-                    6 steeper 30-dB/octave rolloff window
+@verbatim
+  -n                Sampling number for WAV in 1 step (Default: 2048).
+                    If you give larger number, you can get lower notes, but the
+                    resolution in time becomes broader.
+@endverbatim
+
+@verbatim
+  -w --window       0 No window
+                    1 Parzen window
+                    2 Welch window
+                    3 Hanning window (Default)
+                    4 Hamming window
+                    5 Blackman window
+                    6 Steeper 30-dB/octave rolloff window
+@endverbatim
 
 READING WAV OPTIONS:
 
-  -s --shift        Shift number from WAV in 1 step (default: 1/4 of -n option).
+@verbatim
+  -s --shift        Shift number from WAV in 1 step (Default: 1/4 of -n option).
+                    If you give smaller number than the -n option, you
+                    get finer resolution in time.
+@endverbatim
 
 PHASE-VOCODER OPTIONS:
 
+@verbatim
   --nophase         Don't use phase difference to improve frequency estimates.
-                    (default: use the correction)
+                    (Default: use the correction)
+@endverbatim
 
 NOTE SELECTION OPTIONS:
 
-  -c --cutoff       log10 of cut-off ratio to scale velocity of note
-                    (default: -5.0)
-  -r --relative     log10 of cut-off ratio relative to the average.
-                    (default: no relative cutoff = absolute cutoff with the
-                    value in -c option).
-  -k --peak         Peak threshold for note-on, range [0,127]. (default: 128
-                    = no peak-search = search only first on-event).
-  -t --top          Top note [midi #]. (default: 103 = G7)
-  -b --bottom       Bottom note [midi #]. (default: 28 = E1)
+@verbatim
+  -c --cutoff       The log10 of cut-off ratio to scale velocity of note
+                    (Default: -5.0).  This may be a negative number because the
+                    sound signal is scaled in the range [-1,1], so that power
+                    may be less than 1.0.  If you give a larger number, you may
+                    remove weak notes.
+@endverbatim
+
+@verbatim
+  -r --relative     The log10 of cut-off ratio relative to the average.
+                    (Default: no relative cutoff = absolute cutoff with the
+                    value in -c option).  If you give this option, typically
+                    '-r 1', notes whose power is more than the average are
+                    selected.  This means that only strong notes are selected
+                    in a loud part.  If you want to pick up background weak notes,
+                    try a run without this option, but with only the -c option.
+@endverbatim
+
+@verbatim
+  -k --peak         Peak threshold for note-on, range [0,127]. (Default: 128
+                    = no peak-search = search only first on-event).  If you give
+                    this option, a note-on event is detected where the power of
+                    a note has a peak in time.  Otherwise, a note-on event is
+                    detected where its power becomes larger than on-threshold
+                    (at present, this is fixed in the source code).  The
+                    -k option may help when you want to apply for rapid
+                    sounds.  But for slower music, this may cause too many
+		              on/offs in the same tone.  If this is the case, try a run
+                    without -k option.
+@endverbatim
+
+@verbatim
+  -t --top          Top note [midi #]. (Default: 103 = G7)
+@endverbatim
+
+@verbatim
+  -b --bottom       Bottom note [midi #]. (Default: 28 = E1)
                     Middle C (261 Hz) = C4 = midi 60. Midi range [0,127].
+@endverbatim
+
+@verbatim
   -a --adjust       Adjust-pitch param, suggested by WaoNc after analysis.
                     Unit is half-note, that is, +1 is half-note up, -0.5 is
-                    quater-note down. (default: 0)
+                    quater-note down. (Default: 0)
+@endverbatim
 
 DRUM-REMOVAL OPTIONS
 
+@verbatim
   --psub-n          Number of averaging bins in one side.  That is, for n,
-                    (i-n,...,i,...,i+n) are averaged. (default: 0)
+                    (i-n,...,i,...,i+n) are averaged. (Default: 0)
+@endverbatim
+
+@verbatim
   --psub-f          Factor for the average, where the power is modified as
-                    p[i] = [SQRT(p[i]) - f * SQRT(ave[i])]^2 (default: 0.0)
+                    p[i] = [SQRT(p[i]) - f * SQRT(ave[i])]^2 (Default: 0.0)
+@endverbatim
 
 OCTAVE-REMOVAL OPTIONS
 
+@verbatim
   --oct             Factor for the octave removal, where the power is modified
-                    as p[i] = [SQRT(p[i]) - f * SQRT(oct[i])]^2 (default: 0.0)
+                    as p[i] = [SQRT(p[i]) - f * SQRT(oct[i])]^2 (Default: 0.0)
+@endverbatim
 
  *//*-------------------------------------------------------------------------*/
 
