@@ -1,0 +1,108 @@
+-------------------------------------------------------------------------------
+                    WaoN - a wave-to-notes transcriber 0.2
+-------------------------------------------------------------------------------
+
+    Copyright (C) 1998-2006 Kengo Ichiki <kichiki@users.sourceforge.net>
+                            All Rights Reserved
+
+<GPL license snipped>
+
+       
+What is WaoN?
+
+   WaoN is a Wave-to-Notes transcriber, that is, the inverse of '
+   timidity' (and its descendants timidity++, and timidity with Gtk+).
+   ("WaoN" also has a meaning of harmony of notes or chord in Japanese!)
+   My original intention is to pick up voicing of harmony from sound of
+   my favorite pianists. (I have no talent to do so, but computer will
+   :-) But there is no functional application of this kind on Unix
+   platform, as far as I know. So that I start writing WaoN by myself.
+   WaoN is released under the GNU General Public License.
+   
+Features
+
+     * read wav file and write standard MIDI file format 0.
+     * stdin/stdout can be used as input/output file.
+     * no explicit limits of number of notes at a time or along the time.
+     * patch file (wav) can be used.
+     * pitch shift.
+       
+Platform
+
+   I believe that WaoN is generic, but developed on FreeBSD.
+   
+Formats
+
+   WaoN's native format as sound-input is WAV, and that as note-output is
+   standard MIDI format 0. If you have SoX, you can use almost all sound
+   format as input. In addition, if you have timidity or some midi player
+   which could read standard MIDI file from stdin, you can play resultant
+   midi file on time. See also Tips.
+   
+Screenshot ("WaoN" is not a GUI application but ... :-)
+
+$ ./waon --help
+  
+<snipped>
+
+Example:
+
+$ ./waon -i duet-suite.wav -n 1024 -p piano1.wav -r 1
+WaoN : Reading Wave file: Microsoft PCM format,
+        1 channel, 11025 samp/sec, 11025 byte/sec, 1 block align,
+        8 bits/samp, 9922500 data bytes.
+WaoN : Reading Wave file: Microsoft PCM format,
+        1 channel, 44100 samp/sec, 88200 byte/sec, 2 block align,
+        16 bits/samp, 106848 data bytes.
+WaoN : end of file.
+WaoN : difference of pitch = -0.077538 ( + 0.000000 )
+WaoN : # of notes = 26617
+
+       
+TODO
+
+    1. stereo
+    2. improve algorithms
+    3. give some examples and instructions here
+    4. make GUI for WaoN in order to adjust parameters (with Gtk+)
+       
+Links
+
+  Referenced softwares and documents
+  
+     * SoX: Sound eXchange
+          + original site
+          + ver.12.15
+     * standard MIDI Files 0.06
+     * FFTW - C library for FFT used in WaoN.
+     * Gtk+: the GIMP toolkit ; but gWaoN is not yet functional.
+       
+  Similar projects
+  
+     * Timidity - a MIDI to WAVE converter and player
+          + original site (up to 0.2i)
+          + timidity with Gtk+ (0.2j or later).
+          + timidity++
+     * " A Parallel Conversion of WAV files to MID files" by John Markus
+       and William Lee Sims (containing a source code Wav2Mid.c).
+     * Inst2Midi, which converts a monophonic audio source into MIDI
+       Data. (on SGI)
+     * sharewares on Windows... Song Raita, Saihu no Tatsujin.
+       
+  Other useful sites
+  
+     * Some Interesting Sound & MIDI Software For Linux (mirror1,
+       mirror2) : an extensive list of softwares on unix (especially
+       Linux) platform.
+     * The Standards Page : containing documents on various formats (like
+       standard MIDI format).
+     * Wotsit's Format : yet another site on various formats (like MIDI,
+       WAV, etc).
+       
+History
+
+   See the old-waon directory in this project.
+
+    e-mail: ichiki@geocities.com
+    
+         Copyright (c) 1998,1999 Kengo ICHIKI. All rights reserved.
