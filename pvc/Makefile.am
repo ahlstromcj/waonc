@@ -6,7 +6,7 @@
 # \library    	libwaonc and pvc application
 # \author     	Chris Ahlstrom
 # \date       	2013-10-27
-# \update      2013-10-27
+# \update      2019-01-06
 # \version    	$Revision$
 # \license    	$XPC_SUITE_GPL_LICENSE$
 #
@@ -41,12 +41,6 @@ EXTRA_DIST = dl_leaks.supp make-tests README
 #******************************************************************************
 # Items from configure.ac
 #-------------------------------------------------------------------------------
-#
-#  XPCCUT_LIBS is defined by the PKG_CHECK_MODULES macro.  The xpccut
-#  library must be installed officially in order to be used to build the
-#  unit-test application of the xpc library.
-#
-#-------------------------------------------------------------------------------
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -65,6 +59,23 @@ datadir = @datadir@
 datarootdir = @datarootdir@
 waoncincludedir = @waoncincludedir@
 waonclibdir = @waonclibdir@
+
+#******************************************************************************
+# Flags and settings
+#------------------------------------------------------------------------------
+#
+#  These are tricky, because some packages use _LIB, versus _LIBS.
+#
+#------------------------------------------------------------------------------
+
+curses_cflags = @CURSES_CFLAGS@
+curses_libs = @CURSES_LIBS@
+# fftw3_cflags = @FFTW3_CFLAGS@
+fftw3_lib = @FFTW3_LIB@
+samplerate_cflags = @SAMPLERATE_CFLAGS@
+samplerate_libs = @SAMPLERATE_LIBS@
+sndfile_cflags = @SNDFILE_CFLAGS@
+sndfile_libs = @SNDFILE_LIBS@
 
 #******************************************************************************
 # localedir
@@ -88,10 +99,10 @@ builddir = @abs_top_builddir@
 libwaoncdir = $(builddir)/libwaonc/src/.libs
 
 #******************************************************************************
-# AM_CPPFLAGS [formerly "INCLUDES"]
+# AM_CFLAGS [formerly "INCLUDES"]
 #------------------------------------------------------------------------------
 #
-# 	'AM_CPPFLAGS' is the set of directories needed to access all of the
+# 	'AM_CFLAGS' is the set of directories needed to access all of the
 # 	XPC-suite unit-test library header files used in this project.
 #
 #		Defines where to look for header files.
@@ -111,7 +122,10 @@ libwaoncdir = $(builddir)/libwaonc/src/.libs
 #
 #------------------------------------------------------------------------------
 
-AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include
+AM_CFLAGS = -I$(top_srcdir)/libwaonc/include \
+ $(curses_cflags) \
+ $(samplerate_cflags) \
+ $(sndfile_cflags)
 
 #******************************************************************************
 # libmath
@@ -152,7 +166,7 @@ libraries = $(libmath) -L$(libwaoncdir) -lwaonc
 #
 #----------------------------------------------------------------------------
 
-# dependencies = $(xpcclibdir)/libxpc.a
+dependencies = $(libwaoncdir)/libwaonc.a
 
 #******************************************************************************
 # The programs to build
@@ -162,6 +176,7 @@ bin_PROGRAMS = pvc
 
 #******************************************************************************
 # pvc
+#------------------------------------------------------------------------------
 #
 #     LIBINTL not used.  If you somehow don't have/want pkg-config, the
 #     flags are -lfttw3 and -lsndfile.
@@ -169,13 +184,14 @@ bin_PROGRAMS = pvc
 #------------------------------------------------------------------------------
 
 pvc_SOURCES = pv.c jack-pv.c jack-pv.h
-pvc_LDFLAGS = \
- `pkg-config --libs fftw3` \
- `pkg-config --libs sndfile` \
- `pkg-config --libs samplerate` \
- -L`ncurses5-config --libdir` \
- `ncurses5-config --libs`
-pvc_LDADD = -lpthread -ldl $(libraries)
+
+pvc_LDFLAGS = $(libraries) \
+ $(curses_libs) \
+ $(fftw3_lib) \
+ $(samplerate_libs) \
+ $(sndfile_libs)
+
+pvc_LDADD = -lpthread -ldl
 pvc_DEPENDENCIES = $(dependencies)
 
 #******************************************************************************
@@ -201,9 +217,6 @@ distclean-local:
 
 #******************************************************************************
 # Makefile.am (pvc)
-#------------------------------------------------------------------------------
-# Local Variables:
-# End:
 #------------------------------------------------------------------------------
 # 	vim: ts=3 sw=3 ft=automake
 #------------------------------------------------------------------------------

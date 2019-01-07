@@ -1,0 +1,18 @@
+INSTALL for waonc
+Chris Ahlstrom
+2019-01-06 to 2019-01-06
+
+DEPENDENCIES:
+
+   With luck, the following dependencies will bring in their own dependencies
+   when installed.
+
+   Code:
+
+	  -  libncurses5-dev
+	  -  libncursesw5-dev
+      -  libfftw3-dev
+      -  libsamplerate0-dev
+      -  libsndfile-devl
+
+# vim: sw=4 ts=4 wm=4 et ft=sh

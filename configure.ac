@@ -6,7 +6,7 @@ dnl \file          configure.ac
 dnl \library       waonc
 dnl \author        Chris Ahlstrom
 dnl \date          2013-10-19
-dnl \update        2015-02-15
+dnl \update        2019-01-06
 dnl \version       $Revision$
 dnl \license       $WAONC_SUITE_GPL_LICENSE$
 dnl
@@ -337,6 +337,11 @@ AC_SAMPLERATE(, [
    exit -1
    ])
 
+AX_WITH_CURSES
+if test "x$ax_cv_ncursesw" != xyes && test "x$ax_cv_ncurses" != xyes; then
+   AC_MSG_ERROR([requires either NcursesW or Ncurses library])
+fi
+
 dnl Get access to gtk+ and glib, which aren't always in a standard place.
 
 PKG_CHECK_MODULES([GTK], [gtk+-2.0])
@@ -459,9 +464,6 @@ E_O_F
 
 dnl ***************************************************************************
 dnl configure.ac (XPC Basic)
-dnl ---------------------------------------------------------------------------
-dnl Local Variables:
-dnl End:
 dnl ---------------------------------------------------------------------------
 dnl vim: ts=3 sw=3 et ft=config
 dnl ---------------------------------------------------------------------------
