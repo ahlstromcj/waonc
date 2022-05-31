@@ -9,15 +9,14 @@
 
 \file       waon_inside.dox
 \library    Waonc Project
-\page       waonc_main Waonc 0.11
-\date       2015-03-28
-\updates    2015-03-28
+\page       waonc_main Waonc 0.12
+\date       2015-03-28 to 2022-05-31
 
-This section project Kengo's tips on using Waon
+This section project <i>Kengo</i>'s tips on using <i>Waon</i>.
 
 @section waon_inside Inside Waonc
 
-Intro!  This description is Kengo's, with additional material.
+Intro!  This description is <i>Kengo</i>'s, with additional material.
 
 @subsection waon_inside_select Policy of Event Selections
 
@@ -145,16 +144,13 @@ where
 
 Policy of Selection of Note (Frequency)
 
-A. Without --patch option:
-
+-  Without --patch option:
     -# Search for the maximum in the power spectrum and get the frequency.
     -# Set 0 into the power spectrum around the maximum.
        This area subtracted is up to the frequency of the local minimum
        of power in both sides.
     -# Search again until there is no more peak in power spectrum.
-
-B. With --patch option:
-
+-  With --patch option:
     -# Search for the maximum in the power spectrum and get the frequency.
     -# Subtract the power of the --patch option, scaled to the maximum
       frequency.

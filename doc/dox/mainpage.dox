@@ -16,12 +16,24 @@
 
 \file       mainpage.dox
 \library    Waonc Project
-\mainpage   waonc_main Waonc 0.11
-\date       2013-10-27
-\updates    2013-10-27
+\mainpage   Waonc 0.12
+\date       2013-10-27 to 2022-05-31
 
 Waonc is a minor cleanup and documentation of the waon
 application suite.
+
+The <code>libwaonc</code> directory contains routines for analysis and
+processing.
+The <code>waonc</code> directory contains the main program and
+some small sample/test MIDI files.
+The <code>pvc</code> directory contains code for the <i>Waon</i>
+phase vocoder.
+The <code>waonc</code> directory contains a <i>Gtk</i> wrapper for
+the <i>Waon</i> converter.
+All source code is in the <i>C</i> language.
+
+The command <code>waonc --help</code> provides a good listing of the
+program options.
 
  *//*-------------------------------------------------------------------------*/
 
