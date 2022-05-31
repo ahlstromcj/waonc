@@ -6,7 +6,7 @@
 # \library    	libwaonc and gwaonc application
 # \author     	Chris Ahlstrom
 # \date       	2013-10-27
-# \update      2015-02-15
+# \update      2022-05-31
 # \version    	$Revision$
 # \license    	$XPC_SUITE_GPL_LICENSE$
 #
@@ -111,27 +111,15 @@ libwaoncdir = $(builddir)/libwaonc/src/.libs
 #
 #------------------------------------------------------------------------------
 
-# pkg-config --cflags  glib-2.0
-#
-# -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include 
-#
-# AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include -I/usr/include/gtk-2.0 -I/usr/include/glib-2.0
-
-AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include $(GTK_CFLAGS) $(GLIB_CFLAGS)
+AM_CPPFLAGS = -Wno-unused-parameter -Wno-deprecated-declarations -I$(top_srcdir)/libwaonc/include $(GTK_CFLAGS) $(GLIB_CFLAGS)
 
 #******************************************************************************
 # libmath
 #------------------------------------------------------------------------------
 #
-# 		One day, we got errors about sqrt() undefined, which we fixed by
-# 		adding -lm.  Then one day we got errors about various items in
-# 		sys/stat.h being multiply-defined, and it turned out to be the -lm.
-#
-# 		We make it (an empty) define for how to handle it more easily.
+# 		-lm
 #
 #------------------------------------------------------------------------------
-
-libmath = -lm
 
 #****************************************************************************
 # Project-specific library files
@@ -144,7 +132,7 @@ libmath = -lm
 #
 #----------------------------------------------------------------------------
 
-libraries = $(libmath) -L$(libwaoncdir) -lwaonc $(GTK_LIBS) $(GLIB_LIBS)
+libraries = -lpthread -ldl -lm -L$(libwaoncdir) -lwaonc -lncursesw -ltinfo -lao $(GTK_LIBS) $(GLIB_LIBS) $(GDK_PIXBUF_LIBS) $(JACK_LIBS) $(FFTW_LIBS) $(SNDFILE_LIBS) $(SAMPLERATE_LIBS)
 
 #****************************************************************************
 # Project-specific dependency files
@@ -187,15 +175,7 @@ gwaonc_SOURCES = \
  gwaon-play.h \
  gwaon-wav.h
 
-gwaonc_LDFLAGS = \
- `pkg-config --libs fftw3` \
- `pkg-config --libs gtk+-2.0` \
- `pkg-config --libs gdk-pixbuf-2.0` \
- `pkg-config --libs ao` \
- `pkg-config --libs jack` \
- `pkg-config --libs sndfile` \
- `pkg-config --libs samplerate`
-gwaonc_LDADD = -lpthread -ldl $(libraries)
+gwaonc_LDFLAGS = $(libraries)
 gwaonc_DEPENDENCIES = $(dependencies)
 
 #******************************************************************************
@@ -221,9 +201,6 @@ distclean-local:
 
 #******************************************************************************
 # Makefile.am (gwaonc)
-#------------------------------------------------------------------------------
-# Local Variables:
-# End:
 #------------------------------------------------------------------------------
 # 	vim: ts=3 sw=3 ft=automake
 #------------------------------------------------------------------------------

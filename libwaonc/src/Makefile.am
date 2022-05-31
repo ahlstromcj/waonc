@@ -184,34 +184,7 @@ uninstall-hook:
 	@echo "Note:  you may want to remove $(libdir) manually"
 
 #******************************************************************************
-# Debugging targets
-#------------------------------------------------------------------------------
-
-show:
-	@echo "Install directories:"
-	@echo
-	@echo "prefix        = $(prefix)"
-	@echo "datadir       = $(datadir)"
-	@echo "datarootdir   = $(datarootdir)"
-	@echo "libdir        = $(libdir)"
-	@echo "waonclibdir     = $(waonclibdir)"
-	@echo "waoncdocdir     = $(waoncdocdir)"
-	@echo "waoncdoxygendir = $(waoncdoxygendir)"
-	@echo "waoncincludedir = $(waoncincludedir)"
-	@echo "localedir     = $(localedir)"
-	@echo
-	@echo "Local directories:"
-	@echo
-	@echo "top_srcdir    = $(top_srcdir) [XPC Basic root directory]"
-	@echo "srcdir    		= $(srcdir)"
-	@echo "top_builddir  = $(top_builddir)"
-	@echo "builddir      = $(builddir)"
-
-#******************************************************************************
 # Makefile.am (waonc/src)
-#------------------------------------------------------------------------------
-# Local Variables:
-# End:
 #------------------------------------------------------------------------------
 # vim: ts=3 sw=3 noet ft=automake
 #------------------------------------------------------------------------------

@@ -161,46 +161,8 @@ all-local:
 	@echo "Top source-directory 'top_srcdir' is $(top_srcdir)"
 	@echo "* * * * * All build items completed * * * * *"
 
-#******************************************************************************
-# Debugging targets
-#------------------------------------------------------------------------------
-
-show:
-	@echo "Install directories:"
-	@echo
-	@echo "prefix           = $(prefix)"
-	@echo "datadir          = $(datadir)"
-	@echo "datarootdir      = $(datarootdir)"
-	@echo "libdir           = $(libdir)"
-	@echo "waonclibdir      = $(waonclibdir)"
-	@echo "waoncdocdir      = $(waoncdocdir)"
-	@echo "waoncdoxygendir  = $(waoncdoxygendir)"
-	@echo "waoncincludedir  = $(waoncincludedir)"
-	@echo "localedir        = $(localedir)"
-	@echo
-	@echo "Local directories:"
-	@echo
-	@echo "top_srcdir       = $(top_srcdir) [project root directory]"
-	@echo "srcdir           = $(srcdir)"
-	@echo "top_builddir     = $(top_builddir)"
-	@echo "builddir         = $(builddir)"
-
-showver:
-	@echo "PACKAGE            = $(PACKAGE)"
-	@echo "VERSION            = $(VERSION)"
-	@echo "WAONC_API_MAJOR    = $(WAONC_API_MAJOR)"
-	@echo "WAONC_API_MINOR    = $(WAONC_API_MINOR)"
-	@echo "WAONC_API_PATCH    = $(WAONC_API_PATCH)"
-	@echo "WAONC_API_VERSION  = $(WAONC_API_VERSION)"
-	@echo "WAONC_LT_CURRENT   = $(WAONC_LT_CURRENT)"
-	@echo "WAONC_LT_REVISION  = $(WAONC_LT_REVISION)"
-	@echo "WAONC_LT_AGE       = $(WAONC_LT_AGE)"
-
 #****************************************************************************
 # Makefile.am (waonc top-level)
 #----------------------------------------------------------------------------
-# Local Variables:
-# End:
-#------------------------------------------------------------------------------
 # vim: ts=3 sw=3 ft=automake
 #----------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 # \library    	libwaonc and pvc application
 # \author     	Chris Ahlstrom
 # \date       	2013-10-27
-# \update      2013-10-27
+# \update      2022-05-31
 # \version    	$Revision$
 # \license    	$XPC_SUITE_GPL_LICENSE$
 #
@@ -40,12 +40,6 @@ EXTRA_DIST = dl_leaks.supp make-tests README
 
 #******************************************************************************
 # Items from configure.ac
-#-------------------------------------------------------------------------------
-#
-#  XPCCUT_LIBS is defined by the PKG_CHECK_MODULES macro.  The xpccut
-#  library must be installed officially in order to be used to build the
-#  unit-test application of the xpc library.
-#
 #-------------------------------------------------------------------------------
 
 PACKAGE = @PACKAGE@
@@ -94,21 +88,6 @@ libwaoncdir = $(builddir)/libwaonc/src/.libs
 # 	'AM_CPPFLAGS' is the set of directories needed to access all of the
 # 	XPC-suite unit-test library header files used in this project.
 #
-#		Defines where to look for header files.
-#
-#			-	If we build from the xpc_suite root directory, then $top_srcdir
-#           is "../.."
-#			-	If we build from the xpc directory, then it is "..".
-#			-	If we enter a directory such as "debug", and do "../configure",
-#				then it is "../../.."
-#
-#		"../include" is where the xpc header files are located, and it must
-#		be defined even if $top_srcdir is "../..".  So we need two entries,
-#		to handle the two possible build situations.
-#
-#		By convention, we include the "xpc" subdirectory in the C/C++ #include
-#		directives, so it is not needed here.
-#
 #------------------------------------------------------------------------------
 
 AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include
@@ -117,15 +96,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include
 # libmath
 #------------------------------------------------------------------------------
 #
-# 		One day, we got errors about sqrt() undefined, which we fixed by
-# 		adding -lm.  Then one day we got errors about various items in
-# 		sys/stat.h being multiply-defined, and it turned out to be the -lm.
-#
-# 		We make it (an empty) define for how to handle it more easily.
+# 		-lm
 #
 #------------------------------------------------------------------------------
-
-libmath = -lm
 
 #****************************************************************************
 # Project-specific library files
@@ -136,23 +109,21 @@ libmath = -lm
 #
 #  Sometimes one has to change the order of the libraries in this list.
 #
+#  CURSES_LIBS
+#  CURSES_CFLAGS
+#
 #----------------------------------------------------------------------------
 
-libraries = $(libmath) -L$(libwaoncdir) -lwaonc
+libraries = -lpthread -ldl -lm -L$(libwaoncdir) -lwaonc -lncursesw -ltinfo $(FFTW_LIBS) $(SNDFILE_LIBS) $(SAMPLERATE_LIBS)
 
 #****************************************************************************
 # Project-specific dependency files
 #----------------------------------------------------------------------------
 #
-#  Provdies the specific list of dependencies, to assure that the make
+#  Provides the specific list of dependencies, to assure that the make
 #  detects all changes, if they are available.
 #
-#  Since this is our own library and test application, we will assume
-#  the xpccut-1.1 project has already been built.
-#
 #----------------------------------------------------------------------------
-
-# dependencies = $(xpcclibdir)/libxpc.a
 
 #******************************************************************************
 # The programs to build
@@ -162,20 +133,19 @@ bin_PROGRAMS = pvc
 
 #******************************************************************************
 # pvc
+#------------------------------------------------------------------------------
 #
 #     LIBINTL not used.  If you somehow don't have/want pkg-config, the
 #     flags are -lfttw3 and -lsndfile.
 #
+#     ncurses5-config --libs --> -Wl,-Bsymbolic-functions -lncurses -ltinfo
+#
+#     pvc_LDFLAGS = -Wl,--copy-dt-needed-entries $(ncurses6-config --libs)
+#
 #------------------------------------------------------------------------------
 
 pvc_SOURCES = pv.c jack-pv.c jack-pv.h
-pvc_LDFLAGS = \
- `pkg-config --libs fftw3` \
- `pkg-config --libs sndfile` \
- `pkg-config --libs samplerate` \
- -L`ncurses5-config --libdir` \
- `ncurses5-config --libs`
-pvc_LDADD = -lpthread -ldl $(libraries)
+pvc_LDFLAGS = -Wl,--copy-dt-needed-entries -Wl,-Bsymbolic-functions $(libraries)
 pvc_DEPENDENCIES = $(dependencies)
 
 #******************************************************************************
@@ -201,9 +171,6 @@ distclean-local:
 
 #******************************************************************************
 # Makefile.am (pvc)
-#------------------------------------------------------------------------------
-# Local Variables:
-# End:
 #------------------------------------------------------------------------------
 # 	vim: ts=3 sw=3 ft=automake
 #------------------------------------------------------------------------------

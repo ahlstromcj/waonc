@@ -87,8 +87,8 @@ print_version (void)
       stdout,
       "WaoN - a Wave-to-MIDI transcriber, version %s\n\n"
       "Copyright (C) 1998-2007 Kengo Ichiki <kichiki@users.sourceforge.net>\n"
-      "Modified 2013 Chris Ahlstrom <ahlstromcj@users.sourceforge.net>\n"
-      "waon on Web: http://waon.sourceforge.net/\n\n" ,
+      "Modified 2013-2022 Chris Ahlstrom <ahlstromcj@gmail.com>\n"
+      "waon on Web http://waon.sourceforge.net/, waonc on GitHub.\n\n" ,
       WAON_VERSION
    );
 }

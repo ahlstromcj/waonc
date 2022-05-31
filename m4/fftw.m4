@@ -1,64 +1,134 @@
+dnl ***************************************************************************
+dnl fftw.m4
+dnl ---------------------------------------------------------------------------
 dnl
-dnl Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-dnl Copyright (C) INRIA - 2008 - Sylvestre Ledru
-dnl 
-dnl This file must be used under the terms of the CeCILL.
-dnl This source file is licensed as described in the file COPYING, which
-dnl you should have received as part of this distribution.  The terms
-dnl are also available at    
-dnl http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+dnl \file       	fftw.m4
+dnl \library    	waonc
+dnl \author     	Chris Ahlstrom
+dnl \date       	2022-05-31
+dnl \version    	$Revision$
+dnl \license    	$XPC_SUITE_GPL_LICENSE$
 dnl
-dnl AC_FFTW
-dnl ------------------------------------------------------
-dnl Check if FFTW is usable and working
+dnl AX_FFTW (): Set up for FFTW.  This script found at:
 dnl
-AC_DEFUN([AC_FFTW], [
+dnl https://raw.githubusercontent.com/amusecode/amuse/main/m4/fftw.m4
+dnl
+dnl ---------------------------------------------------------------------------
 
-AC_ARG_WITH(fftw_include,
-		AC_HELP_STRING([--with-fftw-include=DIR],[Set the path to the FFTW headers]),
-		[with_fftw_include=$withval],
-		[with_fftw_include='yes']
-		)
+AC_DEFUN([AX_FFTW],[
+        AC_ARG_WITH(fftw,
+             AC_HELP_STRING([--with-fftw=PFX], [Prefix where FFTW has been installed] ),
+             [
+                test "$withval" = no && AC_MSG_WARN([fftw is a required package for some modules])
+                test "$withval" = yes || fftw_prefix="$withval" 
+                with_fftw=yes ],
+             [ with_fftw=yes ] 
+        )
+    
+        AS_IF([test "x$with_fftw" != xno ],
+        [
+            #user override
+            AS_IF([test "x$FFTW_LIBS" != x && test "x$FFTW_FLAGS" != x ],
+            [
+                have_fftw=yes
+                FOUND_FFTW="yes"
+            ],
+            [
+                saved_LIBS="$LIBS"
+                saved_CXXFLAGS="$CXXFLAGS"
+                FFTW_LIBS=""
+                FFTW_FLAGS=""
+                FOUND_FFTW="no"
+                if test x$fftw_prefix == x; then
+                   if test x$PREFIX != x; then
+		      fftw_prefix=$PREFIX 
+                   fi  
+                fi
+                if test x$fftw_prefix != x; then
+                    ac_FFTW_CFLAGS="-I$fftw_prefix/include"
+                    ac_FFTW_LDOPTS="-L$fftw_prefix/lib"
+                    
+                    save_CFLAGS="$CFLAGS"
+                    save_CPPFLAGS="$CPPFLAGS"
+                    CFLAGS="$ac_FFTW_CFLAGS $save_CFLAGS"
+                    CPPFLAGS="$ac_FFTW_CFLAGS $save_CPPFLAGS"
+                    AC_CHECK_HEADER(
+                        [fftw3.h],
+                        [FFTW_FLAGS="$ac_FFTW_CFLAGS"
+                        FOUND_FFTW="yes"],
+                        [AC_MSG_WARN([Cannot find headers (fftw3.h) of the library FFTW in $fftw_prefix/include.])]
+                    )
+                    CFLAGS="$save_CFLAGS"
+                    CPPFLAGS="$save_CPPFLAGS"
+                    
+                    save_LIBS="$LIBS"
+                    LIBS="$ac_FFTW_LDOPTS -lfftw3  -lfftw3_threads $save_LIBS"
+                    
+                    cache_var=AS_TR_SH([ac_cv_lib_fftw3_fftw_plan_dft_r2c])
+                    AC_CHECK_LIB([fftw3], [fftw_plan_dft_r2c],
+                            [FFTW_LIBS="$ac_FFTW_LDOPTS -lfftw3  -lfftw3_threads"],
+                            [FOUND_FFTW="no"]
+                    )
+                    $as_unset $cache_var
+                    if test x$FOUND_FFTW != xyes; then
+                        LIBS="$ac_FFTW_LDOPTS -lfftw3 -lfftw3_threads -lm $save_LIBS"
+                        AC_CHECK_LIB([fftw3], [fftw_plan_dft_r2c],
+                            [FOUND_FFTW="yes"
+                            FFTW_LIBS="$ac_FFTW_LDOPTS -lfftw3 -lfftw3_threads -lm"],
+                            [AC_MSG_WARN([libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c) in $fftw_prefix. Check if libfftw3 is installed and if the version is correct])]
+                        )
+                        $as_unset $cache_var
+                    fi
+                    LIBS="$save_LIBS"
+	fi
+    
+	if test x$FOUND_FFTW != xyes; then
+        PKG_CHECK_MODULES([FFTW],[fftw3 >= 3.2],
+            [
+            FFTW_FLAGS="$FFTW_CFLAGS"
+            FFTW_LIBS="$FFTW_LIBS -lfftw3_threads"
+            FOUND_FFTW=yes
+            ],
+            []
+        )
+    fi
+    
+	if test x$FOUND_FFTW != xyes; then
+                    AC_CHECK_HEADER(
+                        [fftw3.h],
+                        [FFTW_FLAGS=""
+                        FOUND_FFTW="yes"],
+                        [AC_MSG_WARN([Cannot find headers (fftw3.h) of the library FFTW in $fftw_prefix/include.])]
+                    )
+                    cache_var=AS_TR_SH([ac_cv_lib_fftw3_fftw_plan_dft_r2c])
+                    AC_CHECK_LIB(
+                        [fftw3],
+                        [fftw_plan_dft_r2c],
+                        [FFTW_LIBS="-lfftw3 -lfftw3_threads"],
+                        [FOUND_FFTW="no"]
+                    )
+                    $as_unset $cache_var
+                    
+                    if test x$FOUND_FFTW != xyes; then
+                    
+                        save_LIBS="$LIBS"
+                        LIBS="-lfftw3_threads -lm $save_LIBS"
+                        AC_CHECK_LIB([fftw3], [fftw_plan_dft_r2c],
+                                [FOUND_FFTW="yes"
+                                FFTW_LIBS="$ac_FFTW_LDOPTS -lfftw3  -lfftw3_threads -lm"],
+                                [FOUND_FFTW="no"
+                                AC_MSG_WARN([libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c) in $fftw_prefix. Check if libfftw3 is installed and if the version is correct])]
+                        )
+                        LIBS="$save_LIBS"
+                    fi
+    fi
+                
+               
+            ])
+        ])
 
-AC_ARG_WITH(fftw_library,
-		AC_HELP_STRING([--with-fftw-library=DIR],[Set the path to the FFTW libraries]),
-		[with_fftw_library=$withval],
-		[with_fftw_library='yes']
-		)
-
-if test "x$with_fftw_include" != "xyes"; then
-	save_CFLAGS="$CFLAGS"
-	CFLAGS="-I$with_fftw_include"
-	AC_CHECK_HEADER([fftw3.h],
-		[FFTW3_CFLAGS="$CFLAGS"],
-		[AC_MSG_ERROR([Cannot find headers (fftw3.h) of the library FFTW in $with_fftw_include. Please install the dev package (Debian : libfftw3-dev)])]
-	)
-	CFLAGS="$save_CFLAGS"
-else
-	AC_CHECK_HEADER([fftw3.h],
-		[FFTW3_CFLAGS=""],
-		[AC_MSG_ERROR([Cannot find headers (fftw3.h) of the library fftw. Please install the dev package (Debian : libfftw3-dev)])])
-fi
-
-
-# --with-fftw-library set then check in this dir
-if test "x$with_fftw_library" != "xyes"; then
-	save_LIBS="$LIBS"
-	LIBS="-L$with_fftw_library -lfftw3"
-	AC_CHECK_LIB([fftw3], [fftw_plan_dft_r2c],
-			[FFTW3_LIB="-L$with_fftw_library -lfftw3"],
-            [AC_MSG_ERROR([libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c) in $with_fftw_library. Check if libfftw3 is installed and if the version is correct])]
-			)
-	LIBS="$save_LIBS"
-else
-	save_LIBS="$LIBS"
-	AC_CHECK_LIB([fftw3], [fftw_plan_dft_r2c],
-			[FFTW3_LIB="-lfftw3"],
-            [AC_MSG_ERROR([libfftw3 : library missing. (Cannot find symbol fftw_plan_dft_r2c). Check if libfftw3 is installed and if the version is correct])]
-			)
-	LIBS="$save_LIBS"
-fi
-AC_SUBST(FFTW3_LIB)
-AC_DEFINE([WITH_FFTW], [], [With the FFTW library])
-
-])
+        AC_SUBST(FOUND_FFTW)
+        AC_SUBST(FFTW_FLAGS)
+        AC_SUBST(FFTW_LIBS)
+    ]
+)

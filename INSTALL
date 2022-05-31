@@ -1,0 +1,45 @@
+INSTALL for waonc
+Chris Ahlstrom
+2022-05-30 to 2022-05-31
+
+Autotools Build and Install:
+
+    The normal install is meant for for those who do not want to install a lot
+    of extra developer packages, and want to use the standard "configure"
+    steps.  These steps build the most common version of Seq66, "qseq66" with
+    the internal "rtmidi" engine.  The "configure" script for the build
+    process means one needs to install the various "dev" dependencies.  The
+    conventional way to install applications from source code is to use the
+    source tarball and run the normal mantra:
+
+        $ ./bootstrap
+        $ ./configure
+        $ make
+        $ sudo make install
+
+Debugging:
+
+    Normally, one can bootstrap or configure with the --enable-debug option.
+    However, on some machines (e.g. Debian Sid running gcc 9), the debug build
+    fails because it cannot find one of the library symbols.  In that case,
+    one can either use a qmake debug build or the following sequence of
+    commands:
+
+        $ ./bootstrap
+        $ ./configure --enable-debug    [note the lack of "--disable-shared"]
+        $ make &> make.log              [verify that there are no errors]
+        $ libtool --mode=execute gdb ./Seq66qt5/qseq66
+
+    We use cgdb instead of gdb for debugging.
+
+DEPENDENCIES:
+
+    -   libasound2-dev
+    -   libao-dev
+    -   libfftw3-dev and libfftw3-3
+    -   libsndfile1-dev
+    -   libsamplerate0-dev
+    -   libjack-jackd2-dev
+    -   libncurses-dev
+
+# vim: sw=4 ts=4 wm=4 et ft=sh

@@ -4,7 +4,7 @@
 /*
  * MACROS for WaoN
  *
- * Copyright (C) 2013-2013 Chris Ahlstrom <ahlstrom@users.sourceforge.net>
+ * Copyright (C) 2013-2022 Chris Ahlstrom <ahlstrom@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
  * \library       libwaonc
  * \author        Kengo Ichiki with modifications by Chris Ahlstrom
  * \date          2013-11-17
- * \updates       2013-12-24
+ * \updates       2022-05-31
  * \version       $Revision$
  * \license       GNU GPL
  *

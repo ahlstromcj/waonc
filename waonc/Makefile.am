@@ -6,7 +6,7 @@
 # \library    	libwaonc and waonc application
 # \author     	Chris Ahlstrom
 # \date       	2013-10-26
-# \update      2013-12-22
+# \update      2022-05-31
 # \version    	$Revision$
 # \license    	$XPC_SUITE_GPL_LICENSE$
 #
@@ -94,21 +94,6 @@ libwaoncdir = $(builddir)/libwaonc/src/.libs
 # 	'AM_CPPFLAGS' is the set of directories needed to access all of the
 # 	XPC-suite unit-test library header files used in this project.
 #
-#		Defines where to look for header files.
-#
-#			-	If we build from the xpc_suite root directory, then $top_srcdir
-#           is "../.."
-#			-	If we build from the xpc directory, then it is "..".
-#			-	If we enter a directory such as "debug", and do "../configure",
-#				then it is "../../.."
-#
-#		"../include" is where the xpc header files are located, and it must
-#		be defined even if $top_srcdir is "../..".  So we need two entries,
-#		to handle the two possible build situations.
-#
-#		By convention, we include the "xpc" subdirectory in the C/C++ #include
-#		directives, so it is not needed here.
-#
 #------------------------------------------------------------------------------
 
 AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include
@@ -117,15 +102,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/libwaonc/include
 # libmath
 #------------------------------------------------------------------------------
 #
-# 		One day, we got errors about sqrt() undefined, which we fixed by
-# 		adding -lm.  Then one day we got errors about various items in
-# 		sys/stat.h being multiply-defined, and it turned out to be the -lm.
-#
-# 		We make it (an empty) define for how to handle it more easily.
+# 		-lm
 #
 #------------------------------------------------------------------------------
-
-libmath = -lm
 
 #****************************************************************************
 # Project-specific library files
@@ -138,7 +117,7 @@ libmath = -lm
 #
 #----------------------------------------------------------------------------
 
-libraries = $(libmath) -L$(libwaoncdir) -lwaonc
+libraries = -lpthread -ldl -Wl,--start-group -lm -L$(libwaoncdir) -lwaonc -lncursesw -ltinfo $(FFTW_LIBS) $(SNDFILE_LIBS) $(SAMPLERATE_LIBS) -Wl,--end-group
 
 #****************************************************************************
 # Project-specific dependency files
@@ -166,18 +145,15 @@ bin_PROGRAMS = waonc
 #     LIBINTL not used.  If you somehow don't have/want pkg-config, the
 #     flags are -lfttw3 and -lsndfile.
 #
+#     -L`ncurses5-config --libdir`
+#
+#  `ncurses6-config --libs`
 #------------------------------------------------------------------------------
 
 waonc_SOURCES = main.c ../include/analyse.h ../include/midi.h \
  ../include/parameters.h ../include/processing.h
 
-waonc_LDFLAGS = \
- `pkg-config --libs fftw3` \
- `pkg-config --libs sndfile` \
- `pkg-config --libs samplerate` \
- -L`ncurses5-config --libdir` \
- `ncurses5-config --libs`
-waonc_LDADD = -lpthread -ldl $(libraries)
+waonc_LDFLAGS = -Wl,--copy-dt-needed-entries -Wl,-Bsymbolic-functions $(libraries)
 waonc_DEPENDENCIES = $(dependencies)
 
 #******************************************************************************
@@ -203,9 +179,6 @@ distclean-local:
 
 #******************************************************************************
 # Makefile.am (waonc)
-#------------------------------------------------------------------------------
-# Local Variables:
-# End:
 #------------------------------------------------------------------------------
 # 	vim: ts=3 sw=3 ft=automake
 #------------------------------------------------------------------------------

@@ -6,17 +6,17 @@ dnl \file          configure.ac
 dnl \library       waonc
 dnl \author        Chris Ahlstrom
 dnl \date          2013-10-19
-dnl \update        2015-02-15
+dnl \update        2022-05-31
 dnl \version       $Revision$
 dnl \license       $WAONC_SUITE_GPL_LICENSE$
 dnl
-dnl   This script is for the waonc project, a repacking and fixing of waon.
+dnl   This script is for the waonc project, a repackaging and fixing of waon.
 dnl
 dnl ---------------------------------------------------------------------------
 
 AC_PREREQ(2.60)
 AC_REVISION($Revision: 0.11.0$)dnl
-AC_INIT(waonc, [0.11], [ahlstromcj@users.sourceforge.net])
+AC_INIT(waonc, [0.12], [ahlstromcj@users.sourceforge.net])
 AC_CONFIG_AUX_DIR([aux-files])
 AC_CONFIG_SRCDIR([libwaonc/src/midi.c])
 
@@ -49,9 +49,9 @@ PACKAGE=waonc
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_SUBST(PACKAGE)
 
-VERSION="0.11.0"
-AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-AC_SUBST(VERSION)
+dnl VERSION="0.12.0"
+dnl AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
+dnl AC_SUBST(VERSION)
 
 WAONC_SUITE_NAME="WAONC"
 AC_SUBST([WAONC_SUITE_NAME])
@@ -258,9 +258,9 @@ dnl            "WAONC_" to these values when it generated waonc-config.h.
 
 AH_TOP(
 
-#define VERSION_DATE_SHORT "2013-10-19"
-#define VERSION "0.11.0"
-#define API_VERSION "0.11"
+#define VERSION_DATE_SHORT "2022-05-31"
+#define VERSION "0.12.0"
+#define API_VERSION "0.12"
 
 )
 
@@ -302,14 +302,17 @@ AC_CHECK_LIB(ao, ao_initialize, [], [
    ])
 
 dnl This works on Debian, the AC_CHECK_LIB macro does not, probably
-dnl since libfttw3 is installed in /usr/lib/x86_64-linux-gnu
+dnl since libfttw3 is installed in /usr/lib/x86_64-linux-gnu.
+dnl Also, we're trying a more complete m4/fftw.m4 script.
 
-AC_FFTW
+AX_FFTW
 
 dnl AC_CHECK_LIB(fttw3, fttw_execute, [], [
 dnl    echo "Error! You need to install libfttw3-dev."
 dnl    exit -1
 dnl    ])
+
+AX_WITH_CURSES
 
 dnl Requires that libgtk2.0-dev be installed before it will work.
 dnl Sigh.  Still doesn't work due to error involving libz.
@@ -346,6 +349,14 @@ AC_SUBST([GTK_LIBS])
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
 AC_SUBST([GLIB_CFLAGS])
 AC_SUBST([GLIB_LIBS])
+
+PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0])
+AC_SUBST([GDK_PIXBUF_CFLAGS])
+AC_SUBST([GDK_PIXBUF_LIBS])
+
+PKG_CHECK_MODULES([JACK], [jack])
+AC_SUBST([JACK_CFLAGS])
+AC_SUBST([JACK_LIBS])
 
 dnl 8.  Set up other options in the compiler macros.
 dnl
@@ -393,7 +404,6 @@ AC_HEADER_TIME
 AC_HEADER_STDC
 
 AC_CHECK_HEADERS([ao/ao.h])
-
 AC_CHECK_HEADERS([stdarg.h stdio.h stddef.h])
 AC_CHECK_HEADERS([stdlib.h string.h])
 AC_CHECK_HEADERS([limits.h ctype.h sys/time.h time.h errno.h])
@@ -459,9 +469,6 @@ E_O_F
 
 dnl ***************************************************************************
 dnl configure.ac (XPC Basic)
-dnl ---------------------------------------------------------------------------
-dnl Local Variables:
-dnl End:
 dnl ---------------------------------------------------------------------------
 dnl vim: ts=3 sw=3 et ft=config
 dnl ---------------------------------------------------------------------------

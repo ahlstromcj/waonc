@@ -27,7 +27,7 @@
  * \library       libwaonc
  * \author        Kengo Ichiki with modifications by Chris Ahlstrom
  * \date          2007-02-28
- * \updates       2014-01-01
+ * \updates       2022-05-31
  * \version       $Revision$
  * \license       GNU GPL
  *
@@ -312,7 +312,7 @@ windowing
 {
    wbool_t result = wtrue;
    int i;
-   for (i = 0; i < n; i++)
+   for (i = 0; i < n; ++i)
    {
       switch (flag_window)
       {
@@ -425,12 +425,12 @@ windowing
    }
    if (not_nullptr(windfunc))
    {
-      for (i = 0; i < n; i++)
+      for (i = 0; i < n; ++i)
          out[i] = data[i] * windfunc(i, n) * scale_reciprocal;
    }
    else
    {
-      for (i = 0; i < n; i++)
+      for (i = 0; i < n; ++i)
          out[i] = data[i] * scale_reciprocal;
    }
 
@@ -565,7 +565,7 @@ apply_FFT
       if (scale != 1.0)
       {
          int i;
-         for (i = 0; i < len/2+1; i++)
+         for (i = 0; i < len/2+1; ++i)
             amp[i] /= scale;
       }
    }
@@ -599,9 +599,9 @@ init_den (int n, filter_window_t flag_window)
 {
    double den = 0.0;
    int i;
-   for (i = 0; i < n; i++)
+   for (i = 0; i < n; ++i)
    {
-      double winresult;
+      double winresult = 1.0;
       switch (flag_window)
       {
       case FILTER_WINDOW_NONE:               /* square (no window) */
@@ -758,11 +758,11 @@ power_subtract_ave (int n, double * p, int m, double factor)
       CHECK_MALLOC(ave, "power_subtract_ave");
       n_ave = nlen;
    }
-   for (i = 0; i < nlen; i++)         /* full span */
+   for (i = 0; i < nlen; ++i)         /* full span */
    {
       int nave = 0;
       ave[i] = 0.0;
-      for (k = -m; k <= m; k++)
+      for (k = -m; k <= m; ++k)
       {
          if ((i + k) < 0 || (i + k) >= nlen)
             continue;
@@ -773,7 +773,7 @@ power_subtract_ave (int n, double * p, int m, double factor)
       if (nave > 1)
          ave[i] /= (double) nave;
    }
-   for (i = 0; i < nlen; i++)         /* full span */
+   for (i = 0; i < nlen; ++i)         /* full span */
    {
       p[i] = sqrt(p[i]) - factor * sqrt(ave[i]);
       if (p[i] > 0.0)
@@ -824,7 +824,7 @@ power_subtract_octave (int n, double * p, double factor)
       n_oct = n / 2 + 1;
    }
    oct[0] = p[0];
-   for (i = 1; i < nlen / 2 + 1; i++)
+   for (i = 1; i < nlen / 2 + 1; ++i)
    {
       i2 = i * 2;
       if (i2 >= n / 2 + 1)
@@ -837,7 +837,7 @@ power_subtract_octave (int n, double * p, double factor)
       if (i2 + 1 < nlen)
          oct[i2 + 1] = 0.5 * factor * p[i];
    }
-   for (i = 0; i < nlen; i++)          /* full span            */
+   for (i = 0; i < nlen; ++i)          /* full span            */
    {
       p[i] = sqrt(p[i]) - factor * sqrt(oct[i]);
       if (p[i] > 0.0)

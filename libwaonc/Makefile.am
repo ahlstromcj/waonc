@@ -164,35 +164,8 @@ all-local:
 	@echo "Top source-directory 'top_srcdir' is $(top_srcdir)"
 	@echo "* * * * * All waonc build items completed * * * * *"
 
-#******************************************************************************
-# Debugging targets
-#------------------------------------------------------------------------------
-
-show:
-	@echo "Install directories:"
-	@echo
-	@echo "prefix        = $(prefix)"
-	@echo "datadir       = $(datadir)"
-	@echo "datarootdir   = $(datarootdir)"
-	@echo "libdir        = $(libdir)"
-	@echo "xpclibdir     = $(xpclibdir)"
-	@echo "xpcdocdir     = $(xpcdocdir)"
-	@echo "xpcdoxygendir = $(xpcdoxygendir)"
-	@echo "xpcincludedir = $(xpcincludedir)"
-	@echo "localedir     = $(localedir)"
-	@echo
-	@echo "Local directories:"
-	@echo
-	@echo "top_srcdir    = $(top_srcdir) [XPC Basic root directory]"
-	@echo "srcdir    		= $(srcdir)"
-	@echo "top_builddir  = $(top_builddir)"
-	@echo "builddir      = $(builddir)"
-
 #*****************************************************************************
 # Makefile.am (libwaonc top-level)
-#-----------------------------------------------------------------------------
-# Local Variables:
-# End:
 #-----------------------------------------------------------------------------
 # vim: ts=3 sw=3 noet ft=automake
 #-----------------------------------------------------------------------------
